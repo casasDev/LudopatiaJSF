@@ -8,7 +8,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+
 import org.primefaces.event.SelectEvent;
+
+import businessLogic.BLFacadeImplementation;
 
 public class LoginBean {
 	private String nombre;
@@ -17,6 +20,9 @@ public class LoginBean {
 	private TipoUsuario tipo;
 	private static List<TipoUsuario> tipos=new ArrayList<TipoUsuario>();
 
+	private BLFacadeImplementation u;
+	
+	
 	public Date getFecha() {
 		return fecha;
 	}
