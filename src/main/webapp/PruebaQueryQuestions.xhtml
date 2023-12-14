@@ -30,7 +30,7 @@
 			</div>
 
 			<div class="tabla-con-scroll">
-				<p:dataTable id="eventsTable" value="#{yourManagedBean.eventos}" var="event" border="1">
+				<p:dataTable id="eventsTable" value="#{query.eventos}" var="event" border="1">
 					<p:column headerText="Numero evento">
 						<h:outputText value="#{event.eventNumber}"/>
 					</p:column>

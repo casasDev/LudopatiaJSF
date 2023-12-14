@@ -9,6 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.jdo.annotations.Queries;
 
+import businessLogic.BLFacade;
+import configuration.UtilDate;
+
 import businessLogic.*;
 
 import org.primefaces.event.SelectEvent;
@@ -23,6 +26,8 @@ public class QueryQuestionBean {
 	
     private List<Queries> queries;
 	
+    private 
+    
 	public Date getFecha() {
 		return fecha;
 	}
@@ -36,6 +41,14 @@ public class QueryQuestionBean {
 		return eventos;
 		
 	}
+	
+
+	
+	public List<Queries> getListadoQueries() {
+			
+			return queries;
+			
+		}
 	
 	public void onDateSelect(SelectEvent event) {
 		FacesContext.getCurrentInstance().addMessage(null,
