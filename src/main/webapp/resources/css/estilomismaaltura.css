@@ -1,0 +1,48 @@
+/* estilos.css */
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#miForm {
+    flex: 1;
+    padding: 20px;
+}
+
+#panel1 {
+    background-color: #f0f0f0; /* Color de fondo para el panel 1 */
+}
+
+#panel2 {
+    background-color: #e0e0e0; /* Color de fondo para el panel 2 */
+}
+
+h2 {
+    color: #333333;
+}
+
+h3 {
+    color: #0066cc;
+}
+
+td {
+    padding: 10px;
+}
+
+.messages {
+    color: blue;
+}
+
+.calendario-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tabla-con-scroll {
+            max-height: 300px; /* Altura máxima de la tabla */
+            overflow-y: auto; /* Añade barra de desplazamiento vertical si es necesario */
+            display: block; /* Permite establecer el ancho y el alto */
+            
+}

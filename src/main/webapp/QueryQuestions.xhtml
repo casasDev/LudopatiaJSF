@@ -8,24 +8,42 @@
 <f:view>
 	<h:head>
 		<title>Aplicación JavaServer Faces</title>
+		<link rel="stylesheet" type="text/css"
+			href="/LudopatiaJSF/src/main/webapp/resources/css/estilomismaaltura.css" />
 	</h:head>
 	<h:body>
 		<h:form id="miForm">
-		
-			<h1>Query Question</h1>
-			<tr>
-				<td>Fecha (con PrimeFaces):</td>
-				<td><p:calendar id="fecha" value="#{query.fecha}"
-						navigator="true" mode="inline">
-						<p:ajax event="dateSelect" listener="#{query.onDateSelect}"
-							update="mensajes">
-						</p:ajax>
-					</p:calendar></td>
-			</tr>
+			<h2>Query Question</h2>
+			<div class="calendario-container">
+				<tr>
+					<h3>Fecha de evento</h3>
+					<td>Fecha (con PrimeFaces):</td>
+					<td><p:calendar id="fecha" value="#{query.fecha}"
+							navigator="true" mode="inline">
+							<p:ajax event="dateSelect" listener="#{query.onDateSelect}"
+								update="mensajes" />
+						</p:calendar></td>
+				</tr>
+				<div class="tabla-con-scroll">
+					<h:dataTable value="#{query.listaDeEventos}" var="dato" border="1">
+						<h:column>
+							<!-- Columna 1 -->
+							<f:facet name="header">NumeroEvento</f:facet>
+				            #{dato.}
+				        </h:column>
+
+						<h:column>
+							<!-- Columna 2 -->
+							<f:facet name="header">Evento</f:facet>
+				            #{dato.columna2}
+				        </h:column>
+					</h:dataTable>
+				</div>
+			</div>
 			<tr>
 				<td><h:messages style="color:blue" /></td>
 			</tr>
-
+			<h:messages id="mensajes" style="color:blue" />
 		</h:form>
 	</h:body>
 </f:view>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Find Questions</title>
+		<link rel="stylesheet" type="text/css"
+			href="/LudopatiaJSF/src/main/webapp/resources/css/estilomismaaltura.css" />
+		<!-- Asegúrate de incluir los recursos de PrimeFaces -->
+        <h:outputStylesheet library="primefaces" name="primefaces.css"/>
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="primefaces" name="primefaces.js"/>
+	</h:head>
+	<h:body>
+		<h:form id="findQuestionsForm">
+			<h2>Find Questions</h2>
+
+		<div class="container">
+			<div class="calendario-container">
+				<h3>Event Date</h3>
+				<p:calendar id="fecha" value="#{query.fecha}" navigator="true" mode="inline">
+					<p:ajax event="dateSelect" listener="#{query.onDateSelect}"
+								update="mensajes" />
+								<!-- update="eventsTable queriesTable" algo pa darle los valores a la tabla-->
+				</p:calendar>
+			</div>
+
+			<div class="tabla-con-scroll">
+				<p:dataTable id="eventsTable" value="#{yourManagedBean.eventos}" var="event" border="1">
+					<p:column headerText="Numero evento">
+						<h:outputText value="#{event.eventNumber}"/>
+					</p:column>
+					<p:column headerText="Evento">
+						<h:outputText value="#{event.description}"/>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</div>
+
+			<h3>Queries</h3>
+			<p:dataTable id="queriesTable" value="#{query.queries}" var="query">
+				<p:column headerText="Query Number">
+					<h:outputText value="#{query.questionNumber}"/>
+				</p:column>
+				<p:column headerText="Query">
+					<h:outputText value="#{query.question}"/>
+				</p:column>
+			</p:dataTable>
+
+			<h:messages id="mensajes" style="color:blue" />
+
+		</h:form>
+	</h:body>
+</f:view>
+</html>
