@@ -11,5 +11,10 @@
 		<managed-bean-class>modelo.bean.QueryQuestionBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>createQuestion</managed-bean-name>
+		<managed-bean-class>modelo.bean.CreateQuestionBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>
