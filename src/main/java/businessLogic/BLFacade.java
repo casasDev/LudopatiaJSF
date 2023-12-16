@@ -3,9 +3,12 @@ package businessLogic;
 
 
 import dominio.Questions;
+<<<<<<< HEAD
 
 import java.util.Vector;
 
+=======
+>>>>>>> branch 'master' of https://github.com/casasDev/LudopatiaJSF.git
 import dominio.Eventos;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
