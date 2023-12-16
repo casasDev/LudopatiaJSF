@@ -11,15 +11,18 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import HibernateUtil.HibernateUtil;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
+import dominio.Eventos;
+import dominio.Questions;
 import exceptions.QuestionAlreadyExist;
 
 public class DataAccess implements DataAccessInterface {
 
-	protected static SessionFactory sessionFactory;
+	//protected static SessionFactory sessionFactory;
 
     ConfigXML c = ConfigXML.getInstance();
 
@@ -42,7 +45,7 @@ public class DataAccess implements DataAccessInterface {
 	public void initializeDB() {
 
         try {
-            Session session = sessionFactory.openSession();
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             session.beginTransaction();
 
             Calendar today = Calendar.getInstance();
@@ -55,22 +58,63 @@ public class DataAccess implements DataAccessInterface {
                 year += 1;
             }
 
-            Event ev1 = new Event(1, "Atlético-Athletic", UtilDate.newDate(year, month, 17));
-            Event ev2 = new Event(2, "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
-            // ... (rest of the events)
+            Eventos ev1 = new Eventos(1, "Atlético-Athletic", UtilDate.newDate(year, month, 17));
+            Eventos ev2 = new Eventos(2, "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
+            Eventos ev3=new Eventos(3, "Getafe-Celta", UtilDate.newDate(year,month,17));
+            Eventos ev4=new Eventos(4, "Alavés-Deportivo", UtilDate.newDate(year,month,17));
+            Eventos ev5=new Eventos(5, "Español-Villareal", UtilDate.newDate(year,month,17));
+            Eventos ev6=new Eventos(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17));
+            Eventos ev7=new Eventos(7, "Malaga-Valencia", UtilDate.newDate(year,month,17));
+            Eventos ev8=new Eventos(8, "Girona-Leganés", UtilDate.newDate(year,month,17));
+            Eventos ev9=new Eventos(9, "Real Sociedad-Levante", UtilDate.newDate(year,month,17));
+            Eventos ev10=new Eventos(10, "Betis-Real Madrid", UtilDate.newDate(year,month,17));
+            Eventos ev11=new Eventos(11, "Atletico-Athletic", UtilDate.newDate(year,month,1));
+            Eventos ev12=new Eventos(12, "Eibar-Barcelona", UtilDate.newDate(year,month,1));
+            Eventos ev13=new Eventos(13, "Getafe-Celta", UtilDate.newDate(year,month,1));
+            Eventos ev14=new Eventos(14, "Alavés-Deportivo", UtilDate.newDate(year,month,1));
+            Eventos ev15=new Eventos(15, "Español-Villareal", UtilDate.newDate(year,month,1));
+            Eventos ev16=new Eventos(16, "Las Palmas-Sevilla", UtilDate.newDate(year,month,1));
+            Eventos ev17=new Eventos(17, "Málaga-Valencia", UtilDate.newDate(year,month,28));
+            Eventos ev18=new Eventos(18, "Girona-Leganés", UtilDate.newDate(year,month,28));
+            Eventos ev19=new Eventos(19, "Real Sociedad-Levante", UtilDate.newDate(year,month,28));
+            Eventos ev20=new Eventos(20, "Betis-Real Madrid", UtilDate.newDate(year,month,28));
 
-            Question q1 = ev1.addQuestion("Who will win the match?", 1);
-            Question q2 = ev1.addQuestion("Who will score first?", 2);
-            // ... (rest of the questions)
+            Questions q1=ev1.addQuestion("¿Quién ganará el partido?",1);
+            Questions q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
+            Questions q3=ev11.addQuestion("¿Quién ganará el partido?",1);
+            Questions q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
+            Questions q5=ev17.addQuestion("¿Quién ganará el partido?",1);
+            Questions q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
 
             session.persist(q1);
             session.persist(q2);
-            // ... (persist other questions)
+            session.persist(q3);
+            session.persist(q4);
+            session.persist(q5);
+            session.persist(q6);
 
             session.persist(ev1);
             session.persist(ev2);
-            // ... (persist other events)
-
+            session.persist(ev3);
+            session.persist(ev4);
+            session.persist(ev5);
+            session.persist(ev6);
+            session.persist(ev7);
+            session.persist(ev8);
+            session.persist(ev9);
+            session.persist(ev10);
+            session.persist(ev11);
+            session.persist(ev12);
+            session.persist(ev13);
+            session.persist(ev14);
+            session.persist(ev15);
+            session.persist(ev15);
+            session.persist(ev16);
+            session.persist(ev17);
+            session.persist(ev18);
+            session.persist(ev19);
+            session.persist(ev20);
+            
             session.getTransaction().commit();
             session.close();
 
@@ -91,11 +135,13 @@ public class DataAccess implements DataAccessInterface {
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
 	//MODIFICAR
-	public Question createQuestion(Event event, String question, float betMinimum) throws  QuestionAlreadyExist {
+	/*public Question createQuestion(Event event, String question, float betMinimum) throws  QuestionAlreadyExist {
+		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		 session.beginTransaction();
 		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
-		System.out.println(db+" "+event);
+		System.out.println(session+" "+event);
 		
-			Event ev = db.find(Event.class, event.getEventNumber());
+			Event ev = session.find(Event.class, event.getEventNumber());
 			
 			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 			
@@ -106,23 +152,23 @@ public class DataAccess implements DataAccessInterface {
 							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 			db.getTransaction().commit();
 			return q;
-	}
+	}*/
 	
-	public Question createQuestion2(Event event, String question, float betMinimum) throws QuestionAlreadyExist {
+	public Questions createQuestion(Eventos event, String question, float betMinimum) throws QuestionAlreadyExist {
 	    System.out.println(">> DataAccess: createQuestion=> event= " + event + " question= " + question + " betMinimum="
 	            + betMinimum);
 
 	    try {
-	        Session session = sessionFactory.openSession();
+	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	        session.beginTransaction();
 
-	        Event ev = (Event) session.get(Event.class, event.getEventNumber());
+	        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventNumber());
 
 	        if (ev.DoesQuestionExists(question))
 	            throw new QuestionAlreadyExist(
 	                    ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 
-	        Question q = ev.addQuestion(question, betMinimum);
+	        Questions q = ev.addQuestion(question, betMinimum);
 	        session.persist(q);
 	        session.persist(ev);
 
@@ -144,7 +190,7 @@ public class DataAccess implements DataAccessInterface {
 	 * @return collection of events
 	 */
 	//MODIFICAR
-	public Vector<Event> getEvents(Date date) {
+/*	public Vector<Event> getEvents(Date date) {
 		System.out.println(">> DataAccess: getEvents");
 		Vector<Event> res = new Vector<Event>();	
 		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
@@ -155,19 +201,20 @@ public class DataAccess implements DataAccessInterface {
 		   res.add(ev);
 		  }
 	 	return res;
-	}
+	}*/
 	
-	public Vector<Event> getEvents2(Date date) {
+	public Vector<Eventos> getEvents(Date date) {
 	    System.out.println(">> DataAccess: getEvents");
-	    Vector<Event> res = new Vector<Event>();
+	    Vector<Eventos> res = new Vector<Eventos>();
 
 	    try {
-	        Session session = sessionFactory.openSession();
-	        TypedQuery<Event> query = session.createQuery("FROM Event WHERE eventDate = :date", Event.class);
+	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	session.beginTransaction();
+	        TypedQuery<Eventos> query = (TypedQuery<Eventos>) session.createQuery("FROM Eventos WHERE eventDate = :date"/*, Eventos.class*/);
 	        query.setParameter("date", date);
-	        List<Event> events = query.getResultList();
+	        List<Eventos> events = query.getResultList();
 
-	        for (Event ev : events) {
+	        for (Eventos ev : events) {
 	            System.out.println(ev.toString());
 	            res.add(ev);
 	        }
@@ -180,6 +227,7 @@ public class DataAccess implements DataAccessInterface {
 
 	    return res;
 	}
+	
 	/**
 	 * This method retrieves from the database the dates a month for which there are events
 	 * 
@@ -187,7 +235,7 @@ public class DataAccess implements DataAccessInterface {
 	 * @return collection of dates
 	 */
 	//MODIFICAR
-	public Vector<Date> getEventsMonth(Date date) {
+/*	public Vector<Date> getEventsMonth(Date date) {
 		System.out.println(">> DataAccess: getEventsMonth");
 		Vector<Date> res = new Vector<Date>();	
 		
@@ -204,22 +252,22 @@ public class DataAccess implements DataAccessInterface {
 		   res.add(d);
 		  }
 	 	return res;
-	}
+	}*/
 	
 	
-	public Vector<Date> getEventsMonth2(Date date) {
+	public Vector<Date> getEventsMonth(Date date) {
 	    System.out.println(">> DataAccess: getEventsMonth");
 	    Vector<Date> res = new Vector<Date>();
 
 	    try {
-	        Session session = sessionFactory.openSession();
+	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	session.beginTransaction();
 
 	        Date firstDayMonthDate = UtilDate.firstDayMonth(date);
 	        Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
-	        TypedQuery<Date> query = session.createQuery(
-	                "SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay",
-	                Date.class);
+	        TypedQuery<Date> query = (TypedQuery<Date>) session.createQuery(
+	                "SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
 	        query.setParameter("firstDay", firstDayMonthDate);
 	        query.setParameter("lastDay", lastDayMonthDate);
 	        List<Date> dates = query.getResultList();
@@ -240,19 +288,20 @@ public class DataAccess implements DataAccessInterface {
 	
 	
 //MODIFICAR
-public boolean existQuestion(Event event, String question) {
+/*public boolean existQuestion(Event event, String question) {
 	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
 	Event ev = db.find(Event.class, event.getEventNumber());
 	return ev.DoesQuestionExists(question);
 	
-}
+}*/
 
-public boolean existQuestion2(Event event, String question) {
+public boolean existQuestion(Eventos event, String question) {
     System.out.println(">> DataAccess: existQuestion=> event= " + event + " question= " + question);
 
     try {
-        Session session = sessionFactory.openSession();
-        Event ev = (Event) session.get(Event.class, event.getEventNumber());
+    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    	session.beginTransaction();
+        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventNumber());
         session.close(); // Cerrar la sesión después de obtener el objeto Event
 
         return ev != null && ev.DoesQuestionExists(question);
@@ -276,15 +325,15 @@ public void open() {
 	e.printStackTrace();
 	StandardServiceRegistryBuilder.destroy(registry);
 }*/ //No entiendo revisar lab
-	
 }
 
 @Override
 public void close() {
-	if (sessionFactory != null) {
-        sessionFactory.close();
+	/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	if (session != null) {
+		session.close();
         System.out.println("DataBase closed");
-    }
+    }*/
 	
 }
 

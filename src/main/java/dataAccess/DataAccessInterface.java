@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import domain.Event;
 import domain.Question;
+import dominio.Eventos;
+import dominio.Questions;
 import exceptions.QuestionAlreadyExist;
 
 public interface DataAccessInterface {
@@ -42,7 +44,7 @@ public interface DataAccessInterface {
 	 * @return the created question, or null, or an exception
 	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
-	Question createQuestion(Event event, String question, float betMinimum) throws QuestionAlreadyExist;
+	Questions createQuestion(Eventos event, String question, float betMinimum) throws QuestionAlreadyExist;
 
 	/**
 	 * This method retrieves from the database the events of a given date 
@@ -50,7 +52,7 @@ public interface DataAccessInterface {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	Vector<Event> getEvents(Date date);
+	Vector<Eventos> getEvents(Date date);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are events
@@ -68,7 +70,7 @@ public interface DataAccessInterface {
 	 * @param question the question to check  
 	 * @return true if the event contains this the questions, false in other case
 	 */
-	boolean existQuestion(Event event, String question);
+	boolean existQuestion(Eventos event, String question);
 	
 	
 
