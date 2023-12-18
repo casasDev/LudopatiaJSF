@@ -1,33 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<f:view>
-	<h:head>
-		<title>Aplicación JavaServer Faces</title>
-	</h:head>
-	<h:body>
-		<h1>Create Question</h1>
-		<h3>Event date</h3>
-		<p:calendar value="#{createQuestion.fecha}">
-			<p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}"
-				update="events">
-			</p:ajax>
-		</p:calendar>
-		<p></p>
-		<h:message id="events"></h:message>
-		<p></p>
-		<td>Question:</td>
-		<td><h:inputText></h:inputText></td>
-		<td>Min bet</td>
-		<td><h:inputText></h:inputText></td>
-		<p>
-			<h:commandButton value="Create question"></h:commandButton>
-			<h:commandButton value="Close"></h:commandButton>
-		</p>
-	</h:body>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Aplicación JavaServer Faces</title>
+    </h:head>
+    <h:body>
+        <h1>Create Question</h1>
+        <h3>Event date</h3>
+        <p:calendar value="#{createQuestion.fecha}" navigator="true" mode="inline">
+            <p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}" update="events"/>
+        </p:calendar>
+        <p></p>
+        <h:messages id="events" style="color:blue"/>
+        <p></p>
+        <h:form>
+            <table>
+                <tr>
+                    <td>Question:</td>
+                    <td><h:inputText></h:inputText></td>
+                </tr>
+                <tr>
+                    <td>Min bet</td>
+                    <td><h:inputText></h:inputText></td>
+                </tr>
+            </table>
+            <p>
+                <h:commandButton value="Create question"></h:commandButton>
+                <h:commandButton value="Close"></h:commandButton>
+            </p>
+        </h:form>
+    </h:body>
 </f:view>
-</html>

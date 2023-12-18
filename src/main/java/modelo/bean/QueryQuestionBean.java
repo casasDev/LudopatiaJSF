@@ -25,10 +25,8 @@ public class QueryQuestionBean {
 	private List<Event> eventos;
 	
     private List<Queries> queries;
-	
-    private 
-    
-	public Date getFecha() {
+	 
+    public Date getFecha() {
 		return fecha;
 	}
 

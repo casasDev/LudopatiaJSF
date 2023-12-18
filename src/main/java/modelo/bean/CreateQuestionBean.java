@@ -1,8 +1,9 @@
 package modelo.bean;
 
-import java.util.Date;
+import java.util.Date; 
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
@@ -10,11 +11,13 @@ import org.primefaces.event.SelectEvent;
 import antlr.debug.Event;
 import businessLogic.BLFacade;
 import gui.MainGUI;
-
+@ManagedBean
 public class CreateQuestionBean {
 	private Date fecha;
 
-	public CreateQuestionBean() {}
+	public CreateQuestionBean() {
+		this.fecha = new Date();
+	}
 
 	public Date getFecha() {
 		return this.fecha;
@@ -25,6 +28,7 @@ public class CreateQuestionBean {
 	}
 
 	public void onDateSelect(SelectEvent e) {
-		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Events: " + e.getObject()));
+		System.out.println(e.getObject());
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Events: " + fecha));
 	}
 }
