@@ -14,6 +14,8 @@ public class CrearEventos {
 	public CrearEventos() {
 	}
 
+	//PREGUNTAR POR ERROR DE CREACION
+	
 	private void createAndStoreEventoSinPregunta(String descripcion, Date fecha) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -91,7 +93,7 @@ public class CrearEventos {
 	}
 	
 	
-
+	//PARA VER EL CICLO DE VIDA DE LOS OBJETOS
 	/*public void printObjMemBD(String desc, Eventos e) {
 		System.out.print("\tMem:<" + e + "> DB:<" + VerEventoUsandoJDBC.getEventosJDBC(e) + "> =>");
 		System.out.println(desc);
@@ -100,6 +102,46 @@ public class CrearEventos {
 	public static void main(String[] args) {
 		CrearEventos e = new CrearEventos();
 		System.out.println("Creacion de eventos:");
+		
+		e.createAndStoreQuestionsSinEvento("¿Ganara Abraham?", 25);
+		e.createAndStoreQuestionsSinEvento("¿Ganara Ramon?", 25);
+		e.createAndStoreQuestionsSinEvento("¿Se aman?", 25);
+		
+		e.createAndStoreEventoSinPregunta("Barsa-Madrid", new Date());
+		e.createAndStoreEventoSinPregunta("Albacete-Murcia", new Date());
+		e.createAndStoreEventoSinPregunta("Abraham-Ramon", new Date());
+		
+		Questions q2= new Questions("Nose", 12);
+		Questions q3= new Questions("Es lo mismo", 12);
+		
+		e.createAndStoreEventoConPregunta("Nose", new Date(), q2);
+		e.createAndStoreEventoConPregunta("Queso vs Chesse", new Date(), q3);
+		
+		Eventos ev1 = new Eventos("Mantequilla con pan", new Date());
+		Eventos ev2 = new Eventos("Pan con mantequilla", new Date());
+		
+		e.createAndStoreQuestionsConEvento("Porque no margarina?", 12, ev1);
+		e.createAndStoreQuestionsConEvento("Puede ser integral?", 12, ev2);
+		
+		System.out.println("Listado de eventos:");
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		List eventos = e.listaEventos();
+		for (int i = 0; i < eventos.size(); i++) {
+			Eventos ev = (Eventos) eventos.get(i);
+			System.out.println("Numero evento: " + ev.getId() + " Descripcion: "
+			+ ev.getDescription() + " Fecha: " + ev.getEventDate());
+			List preguntas = e.getPreguntasPorEvento(ev);
+			for(int j=0; i< preguntas.size();j++) {
+				Questions q = (Questions) preguntas.get(i);
+				System.out.println("Numero pregunta: " + q.getId() + " Pregunta: "
+					+ q.getQuestion() + " Apuesta: " + q.getBetMinimum()+"Evento asociado: "+q.getEvent());
+			}
+
+		}
+		
+		session.getTransaction().commit();
 		// e.createAndStoreEventoLogin(1L,"Pepe ha hecho login correctamente", new
 		// Date());
 		// e.createAndStoreEventoLogin(2L,"Nerea ha intentado hacer login", new Date());
@@ -120,21 +162,7 @@ public class CrearEventos {
 			EventoLogin ev = (EventoLogin) result.get(i);
 			System.out.println("Id: " + ev.getId() + " DescripciÃ³n: " + ev.getDescripcion() + " Fecha: "
 					+ ev.getFecha() + " Login: " + ev.isLogin());
-		}*/
-		
-		e.createAndStoreEventoSinPregunta("Barsa-Madrid", new Date());
-		e.createAndStoreEventoSinPregunta("Albacete-Murcia", new Date());
-		e.createAndStoreEventoSinPregunta("Abraham-Ramon", new Date());
-		System.out.println("Listado de eventos:");
-		
-		List eventos = e.listaEventos();
-		for (int i = 0; i < eventos.size(); i++) {
-			Eventos ev = (Eventos) eventos.get(i);
-			System.out.println("Numero evento: " + ev.getId() + " Descripcion: "
-			+ ev.getDescription() + " Fecha: " + ev.getEventDate());
-		}
-		
-		
+		}*/	
 	
 		//session.getTransaction().commit();
 		/*

@@ -27,6 +27,8 @@ public class Eventos {
 	private Long eventNumber;
 	private String description; 
 	private Date eventDate;
+	
+	//Illegal attempt to map a non collection as a @OneToMany, @ManyToMany or @CollectionOfElements: dominio.Eventos.preguntas
 	@OneToMany(targetEntity=Questions.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@Fetch(value = FetchMode.SELECT)
 	private Questions preguntas;
@@ -69,7 +71,7 @@ public class Eventos {
 	
 	
 	public String toString(){
-		return eventNumber+";"+description;
+		return eventNumber+"/"+description+"/"+eventDate+"/"+preguntas;
 	}
 	
 	/**
@@ -92,14 +94,17 @@ public class Eventos {
 	 * @param question that needs to be checked if there exists
 	 * @return true if the question exists and false in other case
 	 */
-	public boolean DoesQuestionExists(String question)  {
+	public boolean DoesQuestionExists(Questions question)  {
 		return false;	
 		
 		/*for (Questions q:this.getQuestions()){
-			if (q.getQuestion().compareTo(question)==0)
+			if (preguntas.compareTo(question)==0)
 				return true;
 		}
 		return false;*/
+		
+		//if (preguntas.compareTo(question)) return true;
+		
 	}
 		
 

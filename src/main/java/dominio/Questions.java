@@ -31,7 +31,7 @@ public class Questions {
 	public Questions(){}
 	
 	public Questions(Long queryNumber, String query, float betMinimum, Eventos event) {
-		super();
+		//super();
 		this.questionNumber = queryNumber;
 		this.question = query;
 		this.betMinimum=betMinimum;
@@ -39,11 +39,17 @@ public class Questions {
 	}
 	
 	public Questions(String query, float betMinimum,  Eventos event) {
-		super();
+		//super();
 		this.question = query;
 		this.betMinimum=betMinimum;
 
 		this.event = event;
+	}
+	
+	public Questions(String pregu, float betMinimun) {
+		this.question = pregu;
+		this.betMinimum=betMinimum;
+		
 	}
 
 	public String getQuestion() {
@@ -86,8 +92,11 @@ public class Questions {
 
 
 	public String toString(){
-		return questionNumber+";"+question+";"+Float.toString(betMinimum);
+		return questionNumber+";"+question+";"+Float.toString(betMinimum)+";"+event;
 	}
 	
+	public Long getId() {
+		return questionNumber;
+	}
 	
 }
