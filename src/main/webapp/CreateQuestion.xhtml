@@ -9,12 +9,17 @@
     <h:body>
         <h1>Create Question</h1>
         <h3>Event date</h3>
-        <p:calendar value="#{createQuestion.fecha}" navigator="true" mode="inline">
-            <p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}" update="events"/>
-        </p:calendar>
+        <h:form>
+        <td><p:calendar id="fecha" value="#{createQuestion.fecha}"
+							navigator="false" mode="inline">
+							<p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}"
+								update="events">
+							</p:ajax>
+						</p:calendar></td>
         <p></p>
-        <h:messages id="events" style="color:blue"/>
+        <td><h:messages id="events" style="color:blue"/></td>
         <p></p>
+        </h:form>
         <h:form>
             <table>
                 <tr>

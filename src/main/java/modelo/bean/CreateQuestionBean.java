@@ -1,5 +1,6 @@
 package modelo.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date; 
 
 import javax.faces.application.FacesMessage;
@@ -14,10 +15,7 @@ import gui.MainGUI;
 @ManagedBean
 public class CreateQuestionBean {
 	private Date fecha;
-
-	public CreateQuestionBean() {
-		this.fecha = new Date();
-	}
+	public CreateQuestionBean() {}
 
 	public Date getFecha() {
 		return this.fecha;
@@ -28,7 +26,7 @@ public class CreateQuestionBean {
 	}
 
 	public void onDateSelect(SelectEvent e) {
-		System.out.println(e.getObject());
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Events: " + fecha));
+		this.setFecha((Date)e.getObject());
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Events: " + new SimpleDateFormat("dd/MM/YYYY").format(e.getObject())));
 	}
 }
