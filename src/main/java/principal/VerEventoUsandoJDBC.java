@@ -12,13 +12,12 @@ public class VerEventoUsandoJDBC {
 		ResultSet rs;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mariadb://localhost/eventos","root","admin");
+			c = DriverManager.getConnection("jdbc:mariadb://localhost/eventosProy","root","admin");
 			s = c.createStatement();
 			rs = s.executeQuery("SELECT * FROM FINDQUESTION");
-			System.out.println("EVENTOLOGIN (ID, DESCRIPCION, FECHA");
+			System.out.println("FINDQUESTION (EVENTO, FECHA");
 			while (rs.next()){
-				Long id = rs.getLong("ID");
-				String descripcion = rs.getString("DESCRIPCION");
+				Evento eve = rs.getEvento("EVENTO");
 				Date fecha = rs.getDate("FECHA");
 				System.out.println(id+" / "+descripcion+" / "+fecha);
 			}

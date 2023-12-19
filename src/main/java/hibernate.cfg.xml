@@ -5,7 +5,7 @@
  <session-factory name="">
   <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
   <property name="hibernate.connection.password">admin</property>
-  <property name="hibernate.connection.url">jdbc:mariadb://localhost/eventos</property>
+  <property name="hibernate.connection.url">jdbc:mariadb://localhost/eventosProy</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.connection.pool_size">1</property>
