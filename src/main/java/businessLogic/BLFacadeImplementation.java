@@ -1,12 +1,16 @@
 package businessLogic;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import org.hibernate.Session;
+
+import HibernateUtil.HibernateUtil;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
-import dataAccess.DataAccessInterface;
+import dataAccess.DataAccessHibernate;
 import dominio.Eventos;
 import dominio.Questions;
 import exceptions.EventFinished;
@@ -16,7 +20,7 @@ public class BLFacadeImplementation {
 	   private DataAccess dbManager;
 
 	    public BLFacadeImplementation() {
-	        System.out.println("Creating BLFacadeImplementation instance");
+	       /* System.out.println("Creating BLFacadeImplementation instance");
 	        ConfigXML c = ConfigXML.getInstance();
 
 	        if (c.getDataBaseOpenMode().equals("initialize")) {
@@ -29,11 +33,12 @@ public class BLFacadeImplementation {
 	            dbManager.open();
 	            dbManager.initializeDB(); // Initialize database using Hibernate
 	            dbManager.close();
-	        }
+	        }*/
+	    	Session ses  = HibernateUtil.getSessionFactory().getCurrentSession();
 	    }
 
-	    public BLFacadeImplementation(DataAccessInterface da) {
-	        System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
+	    public BLFacadeImplementation(DataAccessHibernate da) {
+	       /* System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
 	        ConfigXML c = ConfigXML.getInstance();
 
 	        if (c.getDataBaseOpenMode().equals("initialize")) {
@@ -42,7 +47,8 @@ public class BLFacadeImplementation {
 	            da.initializeDB(); // Initialize database using Hibernate
 	            da.close();
 	        }
-	        dbManager = (DataAccess) da;
+	        dbManager = (DataAccess) da;*/
+	    	Session ses  = HibernateUtil.getSessionFactory().getCurrentSession();
 	    }
 
 	    //@WebMethod
@@ -64,18 +70,18 @@ public class BLFacadeImplementation {
 
 
 	   // @WebMethod
-	    public Vector<Eventos> getEvents(Date date) {
+	    public List<Eventos> getEvents(Date date) {
 	        dbManager.open();
-	        Vector<Eventos> events = dbManager.getEvents(date);
+	        List<Eventos> events = dbManager.getEvents(date);
 	        dbManager.close();
 	        return events;
 	    }
 	    
 
 	   // @WebMethod
-	    public Vector<Date> getEventsMonth(Date date) {
+	    public List<Date> getEventsMonth(Date date) {
 	        dbManager.open();
-	        Vector<Date> dates = dbManager.getEventsMonth(date);
+	        List<Date> dates = dbManager.getEventsMonth(date);
 	        dbManager.close();
 	        return dates;
 	    }

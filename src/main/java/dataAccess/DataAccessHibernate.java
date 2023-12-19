@@ -2,6 +2,7 @@ package dataAccess;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import domain.Event;
@@ -10,7 +11,7 @@ import dominio.Eventos;
 import dominio.Questions;
 import exceptions.QuestionAlreadyExist;
 
-public interface DataAccessInterface {
+public interface DataAccessHibernate {
 	
 	/**
 	 * This method opens the database
@@ -52,7 +53,7 @@ public interface DataAccessInterface {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	Vector<Eventos> getEvents(Date date);
+	List<Eventos> getEvents(Date date);
 
 	/**
 	 * This method retrieves from the database the dates a month for which there are events
@@ -60,7 +61,7 @@ public interface DataAccessInterface {
 	 * @param date of the month for which days with events want to be retrieved 
 	 * @return collection of dates
 	 */
-	Vector<Date> getEventsMonth(Date date);
+	List<Date> getEventsMonth(Date date);
 
 	
 	/**

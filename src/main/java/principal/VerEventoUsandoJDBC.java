@@ -14,7 +14,7 @@ public class VerEventoUsandoJDBC {
 			Class.forName("org.mariadb.jdbc.Driver");
 			c = DriverManager.getConnection("jdbc:mariadb://localhost/eventos","root","admin");
 			s = c.createStatement();
-			rs = s.executeQuery("SELECT * FROM EVENTOLOGIN");
+			rs = s.executeQuery("SELECT * FROM FINDQUESTION");
 			System.out.println("EVENTOLOGIN (ID, DESCRIPCION, FECHA");
 			while (rs.next()){
 				Long id = rs.getLong("ID");
@@ -26,7 +26,7 @@ public class VerEventoUsandoJDBC {
 		catch (Exception e) {e.printStackTrace();} 
 		
 	}
-	public static String getUsuariosJDBC(Usuario u) {
+	public static String getEventoJDBC(Date d) {
 		Connection c;
 		PreparedStatement s;
 		ResultSet rs;
@@ -34,7 +34,7 @@ public class VerEventoUsandoJDBC {
 		Class.forName("com.mysql.jdbc.Driver");
 		c = DriverManager.getConnection("jdbc:mysql://localhost/eventos", "root", "admin");
 		s = c.prepareStatement("SELECT * FROM USUARIO WHERE nombre=?");
-		s.setString(1,u.getNombre());
+		s.setString(1, "queso");
 		rs = s.executeQuery();
 		if (rs.next())
 		return (String)(rs.getString("NOMBRE")+"/"+rs.getString("PASSWORD")+"/"+rs.getString("TIPO"));

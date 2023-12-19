@@ -1,10 +1,8 @@
 package principal;
 
-import modelo.HibernateUtil;
-import modelo.dominio.Usuario;
-import modelo.dominio.EventoLogin;
-import modelo.dominio.Maquina;
-import modelo.dominio.Persona;
+import HibernateUtil.HibernateUtil;
+import dominio.*;
+
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -16,7 +14,8 @@ import java.util.*;
 public class DataAcsessEventos {
 	
 	public DataAcsessEventos (){}
-	public Usuario createAndStoreUsuario(String nombre, String password,
+	
+	/*public Usuario createAndStoreUsuario(String nombre, String password,
 	String tipo) {
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	session.beginTransaction();
@@ -26,8 +25,49 @@ public class DataAcsessEventos {
 	u.setTipo(tipo);
 	session.save(u);
 	session.getTransaction().commit();
-	return u; }
-	public EventoLogin createAndStoreEventoLogin(String usuario,
+	return u; }*/
+	
+	public Eventos createEventos(Date d) {
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Eventos e = new Eventos();
+		e.setEventDate(d);
+		session.save(e);
+		session.getTransaction().commit();
+		return e;
+		
+	}
+	
+	public Questions createQuestion(String preg, float bet, Eventos ev) {
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Questions q = new Questions();
+
+		q.setQuestion(preg);
+		q.setBetMinimum(bet);
+		q.setEvent(ev);
+		
+		session.save(q);
+		session.getTransaction().commit();
+		return q;
+		
+	}
+	
+	public List<Eventos> getEventosDep(){
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		List result = session.createQuery("from Eventos").list();
+		System.out.println("getEventosDep() : "+result);
+		session.getTransaction().commit();
+		return result;
+		
+	}
+	
+	
+	/*public Eventos createAndStoreEventoLogin(Int String usuario,
 			boolean login, Date fecha) {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
@@ -51,7 +91,7 @@ public class DataAcsessEventos {
 			{System.out.println("Error: el usuario no existe: "+ex.toString());
 			e=null;}
 			return e;
-			}
+	}*/
 
 	public static void main(String[] args) {
 //	DataAcsessEventos e = new DataAcsessEventos ();
@@ -106,7 +146,7 @@ public class DataAcsessEventos {
 //	System.out.println(lg5.getUsuario().getTipo());
 //	session.getTransaction().commit();
 		
-		DataAcsessEventos e = new DataAcsessEventos();
+		/*DataAcsessEventos e = new DataAcsessEventos();
 		// Comenta todo el código del método main (se ha modificado la clase Usuario)
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -155,7 +195,7 @@ public class DataAcsessEventos {
 		session.persist(u3);
 		session.persist(p1);
 		session.getTransaction().commit();
-		System.out.println("P:<"+u3.getPersona()+"> U:<"+ u3.getPersona().getUsuario()+">");
+		System.out.println("P:<"+u3.getPersona()+"> U:<"+ u3.getPersona().getUsuario()+">");*/
 	
 	}
 	
@@ -167,6 +207,8 @@ public class DataAcsessEventos {
 		session.getTransaction().commit();
 		return result;
 		}
+	
+
 		public List<Usuario> getUsuarios() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();

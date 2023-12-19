@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,15 +21,14 @@ import dominio.Eventos;
 import dominio.Questions;
 import exceptions.QuestionAlreadyExist;
 
-public class DataAccess implements DataAccessInterface {
+public class DataAccess implements DataAccessHibernate {
 
 	//protected static SessionFactory sessionFactory;
 
-    ConfigXML c = ConfigXML.getInstance();
+    //ConfigXML c = ConfigXML.getInstance();
 
     public DataAccess(boolean initializeMode) {
-        System.out.println("Creating DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-                + " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+     
 
         open();
 
@@ -58,26 +58,26 @@ public class DataAccess implements DataAccessInterface {
                 year += 1;
             }
 
-            Eventos ev1 = new Eventos(1, "Atlético-Athletic", UtilDate.newDate(year, month, 17));
-            Eventos ev2 = new Eventos(2, "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
-            Eventos ev3=new Eventos(3, "Getafe-Celta", UtilDate.newDate(year,month,17));
-            Eventos ev4=new Eventos(4, "Alavés-Deportivo", UtilDate.newDate(year,month,17));
-            Eventos ev5=new Eventos(5, "Español-Villareal", UtilDate.newDate(year,month,17));
-            Eventos ev6=new Eventos(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17));
-            Eventos ev7=new Eventos(7, "Malaga-Valencia", UtilDate.newDate(year,month,17));
-            Eventos ev8=new Eventos(8, "Girona-Leganés", UtilDate.newDate(year,month,17));
-            Eventos ev9=new Eventos(9, "Real Sociedad-Levante", UtilDate.newDate(year,month,17));
-            Eventos ev10=new Eventos(10, "Betis-Real Madrid", UtilDate.newDate(year,month,17));
-            Eventos ev11=new Eventos(11, "Atletico-Athletic", UtilDate.newDate(year,month,1));
-            Eventos ev12=new Eventos(12, "Eibar-Barcelona", UtilDate.newDate(year,month,1));
-            Eventos ev13=new Eventos(13, "Getafe-Celta", UtilDate.newDate(year,month,1));
-            Eventos ev14=new Eventos(14, "Alavés-Deportivo", UtilDate.newDate(year,month,1));
-            Eventos ev15=new Eventos(15, "Español-Villareal", UtilDate.newDate(year,month,1));
-            Eventos ev16=new Eventos(16, "Las Palmas-Sevilla", UtilDate.newDate(year,month,1));
-            Eventos ev17=new Eventos(17, "Málaga-Valencia", UtilDate.newDate(year,month,28));
-            Eventos ev18=new Eventos(18, "Girona-Leganés", UtilDate.newDate(year,month,28));
-            Eventos ev19=new Eventos(19, "Real Sociedad-Levante", UtilDate.newDate(year,month,28));
-            Eventos ev20=new Eventos(20, "Betis-Real Madrid", UtilDate.newDate(year,month,28));
+            Eventos ev1 = new Eventos( "Atlético-Athletic", UtilDate.newDate(year, month, 17));
+            Eventos ev2 = new Eventos( "Eibar-Barcelona", UtilDate.newDate(year, month, 17));
+            Eventos ev3=new Eventos( "Getafe-Celta", UtilDate.newDate(year,month,17));
+            Eventos ev4=new Eventos( "Alavés-Deportivo", UtilDate.newDate(year,month,17));
+            Eventos ev5=new Eventos( "Español-Villareal", UtilDate.newDate(year,month,17));
+            Eventos ev6=new Eventos( "Las Palmas-Sevilla", UtilDate.newDate(year,month,17));
+            Eventos ev7=new Eventos( "Malaga-Valencia", UtilDate.newDate(year,month,17));
+            Eventos ev8=new Eventos( "Girona-Leganés", UtilDate.newDate(year,month,17));
+            Eventos ev9=new Eventos( "Real Sociedad-Levante", UtilDate.newDate(year,month,17));
+            Eventos ev10=new Eventos( "Betis-Real Madrid", UtilDate.newDate(year,month,17));
+            Eventos ev11=new Eventos( "Atletico-Athletic", UtilDate.newDate(year,month,1));
+            Eventos ev12=new Eventos( "Eibar-Barcelona", UtilDate.newDate(year,month,1));
+            Eventos ev13=new Eventos( "Getafe-Celta", UtilDate.newDate(year,month,1));
+            Eventos ev14=new Eventos( "Alavés-Deportivo", UtilDate.newDate(year,month,1));
+            Eventos ev15=new Eventos( "Español-Villareal", UtilDate.newDate(year,month,1));
+            Eventos ev16=new Eventos( "Las Palmas-Sevilla", UtilDate.newDate(year,month,1));
+            Eventos ev17=new Eventos( "Málaga-Valencia", UtilDate.newDate(year,month,28));
+            Eventos ev18=new Eventos( "Girona-Leganés", UtilDate.newDate(year,month,28));
+            Eventos ev19=new Eventos( "Real Sociedad-Levante", UtilDate.newDate(year,month,28));
+            Eventos ev20=new Eventos( "Betis-Real Madrid", UtilDate.newDate(year,month,28));
 
             Questions q1=ev1.addQuestion("¿Quién ganará el partido?",1);
             Questions q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
@@ -155,14 +155,13 @@ public class DataAccess implements DataAccessInterface {
 	}*/
 	
 	public Questions createQuestion(Eventos event, String question, float betMinimum) throws QuestionAlreadyExist {
-	    System.out.println(">> DataAccess: createQuestion=> event= " + event + " question= " + question + " betMinimum="
-	            + betMinimum);
+	  
 
 	    try {
 	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	        session.beginTransaction();
 
-	        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventNumber());
+	        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventDate());
 
 	        if (ev.DoesQuestionExists(question))
 	            throw new QuestionAlreadyExist(
@@ -203,9 +202,9 @@ public class DataAccess implements DataAccessInterface {
 	 	return res;
 	}*/
 	
-	public Vector<Eventos> getEvents(Date date) {
+	public List<Eventos> getEvents(Date date) {
 	    System.out.println(">> DataAccess: getEvents");
-	    Vector<Eventos> res = new Vector<Eventos>();
+	    List<Eventos> res = new ArrayList<Eventos>();
 
 	    try {
 	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -267,7 +266,7 @@ public class DataAccess implements DataAccessInterface {
 	        Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
 	        TypedQuery<Date> query = (TypedQuery<Date>) session.createQuery(
-	                "SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
+	                "SELECT DISTINCT ev.eventDate FROM Eventos ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
 	        query.setParameter("firstDay", firstDayMonthDate);
 	        query.setParameter("lastDay", lastDayMonthDate);
 	        List<Date> dates = query.getResultList();
@@ -301,7 +300,7 @@ public boolean existQuestion(Eventos event, String question) {
     try {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
-        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventNumber());
+        Eventos ev = (Eventos) session.get(Eventos.class, event.getEventDate());
         session.close(); // Cerrar la sesión después de obtener el objeto Event
 
         return ev != null && ev.DoesQuestionExists(question);

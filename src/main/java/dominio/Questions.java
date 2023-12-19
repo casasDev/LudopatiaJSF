@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -17,16 +18,17 @@ import org.hibernate.annotations.FetchMode;
 public class Questions {
 
 	@Id 
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer questionNumber;
 	private String question; 
 	private float betMinimum;
-	private String result;  
-
+	private String result;
+	@OneToOne(targetEntity=Eventos.class, fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@Fetch(value = FetchMode.SELECT)
 	private Eventos event;
 
 	public Questions(){
-		super();
+		//super();
 	}
 	
 	public Questions(Integer queryNumber, String query, float betMinimum, Eventos event) {
@@ -45,63 +47,20 @@ public class Questions {
 		this.event = event;
 	}
 
-	/**
-	 * Get the  number of the question
-	 * 
-	 * @return the question number
-	 */
-	public Integer getQuestionNumber() {
-		return questionNumber;
-	}
-
-	/**
-	 * Set the bet number to a question
-	 * 
-	 * @param questionNumber to be setted
-	 */
-	public void setQuestionNumber(Integer questionNumber) {
-		this.questionNumber = questionNumber;
-	}
-
-
-	/**
-	 * Get the question description of the bet
-	 * 
-	 * @return the bet question
-	 */
-
 	public String getQuestion() {
 		return question;
 	}
 
 
-	/**
-	 * Set the question description of the bet
-	 * 
-	 * @param question to be setted
-	 */	
 	public void setQuestion(String question) {
 		this.question = question;
 	}
 
 
-
-	/**
-	 * Get the minimun ammount of the bet
-	 * 
-	 * @return the minimum bet ammount
-	 */
-	
 	public float getBetMinimum() {
 		return betMinimum;
 	}
 
-
-	/**
-	 * Get the minimun ammount of the bet
-	 * 
-	 * @param  betMinimum minimum bet ammount to be setted
-	 */
 
 	public void setBetMinimum(float betMinimum) {
 		this.betMinimum = betMinimum;
@@ -109,11 +68,6 @@ public class Questions {
 
 
 
-	/**
-	 * Get the result of the  query
-	 * 
-	 * @return the the query result
-	 */
 	public String getResult() {
 		return result;
 	}

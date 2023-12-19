@@ -1,6 +1,8 @@
 package dominio;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.Id;
@@ -25,14 +27,15 @@ public class Eventos {
 	private Integer eventNumber;
 	private String description; 
 	private Date eventDate;
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Vector<Questions> questions=new Vector<Questions>();
+	@OneToMany(targetEntity=Questions.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@Fetch(value = FetchMode.SELECT)
+	private List<Questions> questions=new ArrayList<Questions>();
 
-	public Vector<Questions> getQuestions() {
+	public List<Questions> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Vector<Questions> questions) {
+	public void setQuestions(List<Questions> questions) {
 		this.questions = questions;
 	}
 
@@ -40,24 +43,12 @@ public class Eventos {
 		//super();
 	}
 
-	public Eventos(Integer eventNumber, String description,Date eventDate) {
-		this.eventNumber = eventNumber;
-		this.description = description;
-		this.eventDate=eventDate;
-	}
-	
+
 	public Eventos( String description,Date eventDate) {
 		this.description = description;
 		this.eventDate=eventDate;
 	}
 
-	public Integer getEventNumber() {
-		return eventNumber;
-	}
-
-	public void setEventNumber(Integer eventNumber) {
-		this.eventNumber = eventNumber;
-	}
 
 	public String getDescription() {
 		return description;
