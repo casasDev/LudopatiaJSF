@@ -5,7 +5,7 @@
  <session-factory name="">
   <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
   <property name="hibernate.connection.password">admin</property>
-  <property name="hibernate.connection.url">jdbc:mariadb://localhost/eventosProy</property>
+  <property name="hibernate.connection.url">jdbc:mariadb://localhost/eventosProyecto</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.connection.pool_size">1</property>
@@ -14,8 +14,8 @@
   <property name="hibernate.hbm2ddl.auto">create</property>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
-  <mapping class="dominio.FindEvento"/>
+  <mapping class="dominio.FindEventos"/>
   <mapping class="dominio.Eventos" />
-  <mapping class="dominio.Question" />
+  <mapping class="dominio.Questions" />
  </session-factory>
 </hibernate-configuration>

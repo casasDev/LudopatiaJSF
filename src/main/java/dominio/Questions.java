@@ -15,11 +15,12 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+@Entity
 public class Questions {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer questionNumber;
+	private Long questionNumber;
 	private String question; 
 	private float betMinimum;
 	private String result;
@@ -27,11 +28,9 @@ public class Questions {
 	@Fetch(value = FetchMode.SELECT)
 	private Eventos event;
 
-	public Questions(){
-		//super();
-	}
+	public Questions(){}
 	
-	public Questions(Integer queryNumber, String query, float betMinimum, Eventos event) {
+	public Questions(Long queryNumber, String query, float betMinimum, Eventos event) {
 		super();
 		this.questionNumber = queryNumber;
 		this.question = query;
@@ -72,41 +71,18 @@ public class Questions {
 		return result;
 	}
 
-
-
-	/**
-	 * Get the result of the  query
-	 * 
-	 * @param result of the query to be setted
-	 */
-	
 	public void setResult(String result) {
 		this.result = result;
 	}
 
-
-
-	/**
-	 * Get the event associated to the bet
-	 * 
-	 * @return the associated event
-	 */
 	public Eventos getEvent() {
 		return event;
 	}
 
 
-
-	/**
-	 * Set the event associated to the bet
-	 * 
-	 * @param event to associate to the bet
-	 */
 	public void setEvent(Eventos event) {
 		this.event = event;
 	}
-
-
 
 
 	public String toString(){

@@ -19,24 +19,25 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 
-
+@Entity
 public class Eventos {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer eventNumber;
+	private Long eventNumber;
 	private String description; 
 	private Date eventDate;
 	@OneToMany(targetEntity=Questions.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@Fetch(value = FetchMode.SELECT)
-	private List<Questions> questions=new ArrayList<Questions>();
+	private Questions preguntas;
+	//private List<Questions> questions=new ArrayList<Questions>();
 
-	public List<Questions> getQuestions() {
-		return questions;
+	public Questions getQuestions() {
+		return preguntas;
 	}
 
-	public void setQuestions(List<Questions> questions) {
-		this.questions = questions;
+	public void setQuestions(Questions questions) {
+		this.preguntas = questions;
 	}
 
 	public Eventos() {
@@ -80,7 +81,7 @@ public class Eventos {
 	 */
 	public Questions addQuestion(String question, float betMinimum)  {
         Questions q=new Questions(question,betMinimum, this);
-        questions.add(q);
+        
         return q;
 	}
 
@@ -91,13 +92,14 @@ public class Eventos {
 	 * @param question that needs to be checked if there exists
 	 * @return true if the question exists and false in other case
 	 */
-	public boolean DoesQuestionExists(String question)  {	
+	public boolean DoesQuestionExists(String question)  {
+		return false;	
 		
-		for (Questions q:this.getQuestions()){
+		/*for (Questions q:this.getQuestions()){
 			if (q.getQuestion().compareTo(question)==0)
 				return true;
 		}
-		return false;
+		return false;*/
 	}
 		
 
@@ -105,9 +107,9 @@ public class Eventos {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		long result = 1;
 		result = prime * result + eventNumber;
-		return result;
+		return (int) result;
 	}
 
 	@Override
@@ -122,6 +124,11 @@ public class Eventos {
 		if (eventNumber != other.eventNumber)
 			return false;
 		return true;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return eventNumber;
 	}
 	
 	
