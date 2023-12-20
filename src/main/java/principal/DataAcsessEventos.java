@@ -1,6 +1,6 @@
 package principal;
 
-import HibernateUtil.HibernateUtil;
+import HibernateUtil.HibernateUtil; 
 import dominio.*;
 
 
@@ -163,7 +163,7 @@ public class DataAcsessEventos {
 		Evento lg = new Evento();
 		lg.setDescription("ANKARA MESSI");
 		lg.setEventDate(new Date());
-		lg.setQuestions(u);
+		//lg.setQuestions(u);
 		//HashSet es = new HashSet();
 		//es.add(lg);
 		//u.setEventos(es);

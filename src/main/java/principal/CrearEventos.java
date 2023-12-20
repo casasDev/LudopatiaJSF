@@ -1,8 +1,7 @@
-package principal;
+ package principal;
 
-import HibernateUtil.HibernateUtil;
+import HibernateUtil.HibernateUtil; 
 import dominio.Evento;
-import dominio.FindEventos;
 import dominio.Pregunta;
 
 import org.hibernate.Query;

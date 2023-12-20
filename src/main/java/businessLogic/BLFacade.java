@@ -2,13 +2,10 @@ package businessLogic;
 
 
 
-import dominio.Pregunta;
+import dominio.Pregunta; 
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-
-import javax.servlet.annotation.WebServlet;
-
 import dominio.Evento;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
