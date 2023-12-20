@@ -13,12 +13,15 @@
         <td><p:calendar id="fecha" value="#{createQuestion.fecha}"
 							navigator="false" mode="inline">
 							<p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}"
-								update="events">
+								update="events, listaEventos">
 							</p:ajax>
 						</p:calendar></td>
         <p></p>
         <td><h:messages id="events" style="color:blue"/></td>
         <p></p>
+        <h:selectOneMenu id="listaEventos">
+        <f:selectItems value="#{createQuestion.elementos}"/>
+        </h:selectOneMenu>
         </h:form>
         <h:form>
             <table>

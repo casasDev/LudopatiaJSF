@@ -1,6 +1,6 @@
 package modelo.bean;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

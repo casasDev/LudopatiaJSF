@@ -56,7 +56,9 @@ public class Evento {
 		this.eventDate=eventDate;
 	}
 
-
+	public Long getEventNumber(){
+		return eventNumber;
+	}
 	public String getDescription() {
 		return description;
 	}

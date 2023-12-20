@@ -55,7 +55,9 @@ public class Pregunta {
 	public String getQuestion() {
 		return question;
 	}
-
+	public Long getQuestionNumber() {
+		return questionNumber;
+	}
 
 	public void setQuestion(String question) {
 		this.question = question;
