@@ -18,43 +18,23 @@ import exceptions.QuestionAlreadyExist;
 
 public class BLFacadeImplementation {
 	   private DataAccessHibernate dbManager;
+	   private Session ses;
 
 	    public BLFacadeImplementation() {
-	       /* System.out.println("Creating BLFacadeImplementation instance");
-	        ConfigXML c = ConfigXML.getInstance();
 
-	        if (c.getDataBaseOpenMode().equals("initialize")) {
-	            // Initialize Hibernate and MariaDB here if needed
-	            // Example: HibernateUtil.initialize();
-	            // Example: MariaDBUtil.initialize();
-	            // ...
-
-	            dbManager = new DataAccess(); // Assuming you have a DataAccessInterface class for Hibernate
-	            dbManager.open();
-	            dbManager.initializeDB(); // Initialize database using Hibernate
-	            dbManager.close();
-	        }*/
-	    	Session ses  = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	 ses  = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	dbManager = new DataAccessHibernate();
 	    }
 
 	    public BLFacadeImplementation(DataAccessHibernateImplementation da) {
-	       /* System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
-	        ConfigXML c = ConfigXML.getInstance();
-
-	        if (c.getDataBaseOpenMode().equals("initialize")) {
-	            da.emptyDatabase(); // Implement this method in your DataAccessInterface for cleanup
-	            da.open();
-	            da.initializeDB(); // Initialize database using Hibernate
-	            da.close();
-	        }
-	        dbManager = (DataAccess) da;*/
-	    	Session ses  = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	 ses  = HibernateUtil.getSessionFactory().getCurrentSession();
+	    	 dbManager = new DataAccessHibernate();
 	    }
 
-	    //@WebMethod
 	    public Pregunta createQuestion(Evento event, String question, float betMinimum)
 	            throws EventFinished, QuestionAlreadyExist {
-	        dbManager.open();
+	    	ses.beginTransaction();
+	        
 	        Pregunta qry = null;
 
 	        if (new Date().compareTo(event.getEventDate()) > 0)
@@ -62,39 +42,37 @@ public class BLFacadeImplementation {
 
 	        qry = dbManager.createQuestion(event, question, betMinimum);
 
-	        dbManager.close();
-
+	        ses.getTransaction().commit();
+	        ses.close();
 	        return qry;
 	    }
 	    
 
-
-	   // @WebMethod
 	    public List<Evento> getEvents(Date date) {
-	        dbManager.open();
+	    	ses.beginTransaction();
+
 	        List<Evento> events = dbManager.getEvents(date);
-	        dbManager.close();
+	        
+	        ses.close();
 	        return events;
 	    }
 	    
 
-	   // @WebMethod
+
 	    public List<Date> getEventsMonth(Date date) {
-	        dbManager.open();
+	    	ses.beginTransaction();
 	        List<Date> dates = dbManager.getEventsMonth(date);
-	        dbManager.close();
+	        ses.close();
 	        return dates;
 	    }
 	    
-	    public void close() {
-	        dbManager.close();
-	    }
+
 	    
 	    //@WebMethod
 	    public void initializeBD() {
-	        dbManager.open();
+	    	
 	        dbManager.initializeDB();
-	        dbManager.close();
+
 	    }
 
 /*	public BLFacadeImplementation()  {		

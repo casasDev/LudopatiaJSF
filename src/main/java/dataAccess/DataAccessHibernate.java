@@ -8,7 +8,8 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.persistence.TypedQuery;
-
+import javax.persistence.*;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -29,12 +30,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
     public DataAccessHibernate(boolean initializeMode) {
      
-
-        open();
-
-        /* if (initializeMode)
-            initializeDB();
-        */
     }
 
 	public DataAccessHibernate()  {	
@@ -148,6 +143,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	            throw new QuestionAlreadyExist(
 	                    ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 
+	        //
 	        Pregunta q = ev.addQuestion(question, betMinimum);
 	        session.persist(q);
 	        session.persist(ev);
@@ -162,45 +158,28 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	        return null;
 	    }
 	}
-	
-	/**
-	 * This method retrieves from the database the events of a given date 
-	 * 
-	 * @param date in which events are retrieved
-	 * @return collection of events
-	 */
-	//MODIFICAR
-/*	public Vector<Event> getEvents(Date date) {
-		System.out.println(">> DataAccess: getEvents");
-		Vector<Event> res = new Vector<Event>();	
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
-		query.setParameter(1, date);
-		List<Event> events = query.getResultList();
-	 	 for (Event ev:events){
-	 	   System.out.println(ev.toString());		 
-		   res.add(ev);
-		  }
-	 	return res;
-	}*/
-	
+
 	public List<Evento> getEvents(Date date) {
-	    System.out.println(">> DataAccess: getEvents");
+		
 	    List<Evento> res = new ArrayList<Evento>();
 
 	    try {
+	    	
 	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	    	session.beginTransaction();
-	        TypedQuery<Evento> query = (TypedQuery<Evento>) session.createQuery("FROM Eventos WHERE eventDate = :date"/*, Eventos.class*/);
+	        Query query =   session.createQuery("FROM Eventos WHERE eventDate = :date"/*, Eventos.class*/);
 	        query.setParameter("date", date);
-	        List<Evento> events = query.getResultList();
-
+	        List<Evento> events = query.list();
+	        
 	        for (Evento ev : events) {
 	            System.out.println(ev.toString());
 	            res.add(ev);
 	        }
 
 	        session.close();
-	    } catch (Exception e) {
+	    } 
+	    
+	    catch (Exception e) {
 	        e.printStackTrace();
 	        // Manejar la excepción según tus necesidades
 	    }
@@ -214,30 +193,9 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	 * @param date of the month for which days with events want to be retrieved 
 	 * @return collection of dates
 	 */
-	//MODIFICAR
-/*	public Vector<Date> getEventsMonth(Date date) {
-		System.out.println(">> DataAccess: getEventsMonth");
-		Vector<Date> res = new Vector<Date>();	
-		
-		Date firstDayMonthDate= UtilDate.firstDayMonth(date);
-		Date lastDayMonthDate= UtilDate.lastDayMonth(date);
-				
-		
-		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN ?1 and ?2",Date.class);   
-		query.setParameter(1, firstDayMonthDate);
-		query.setParameter(2, lastDayMonthDate);
-		List<Date> dates = query.getResultList();
-	 	 for (Date d:dates){
-	 	   System.out.println(d.toString());		 
-		   res.add(d);
-		  }
-	 	return res;
-	}*/
-	
-	
-	public Vector<Date> getEventsMonth(Date date) {
-	    System.out.println(">> DataAccess: getEventsMonth");
-	    Vector<Date> res = new Vector<Date>();
+
+	public List<Date> getEventsMonth(Date date) {
+	    List<Date> res = new ArrayList<Date>();
 
 	    try {
 	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -246,11 +204,10 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	        Date firstDayMonthDate = UtilDate.firstDayMonth(date);
 	        Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
-	        TypedQuery<Date> query = (TypedQuery<Date>) session.createQuery(
-	                "SELECT DISTINCT ev.eventDate FROM Eventos ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
+	        Query query =session.createQuery("SELECT DISTINCT ev.eventDate FROM Eventos ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
 	        query.setParameter("firstDay", firstDayMonthDate);
 	        query.setParameter("lastDay", lastDayMonthDate);
-	        List<Date> dates = query.getResultList();
+	        List<Date> dates = query.list();
 
 	        for (Date d : dates) {
 	            System.out.println(d.toString());
@@ -266,17 +223,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	    return res;
 	}
 	
-	
-//MODIFICAR
-/*public boolean existQuestion(Event event, String question) {
-	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-	Event ev = db.find(Event.class, event.getEventNumber());
-	return ev.DoesQuestionExists(question);
-	
-}*/
-
 public boolean existQuestion(Evento event, String question) {
-    System.out.println(">> DataAccess: existQuestion=> event= " + event + " question= " + question);
 
     try {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -291,39 +238,5 @@ public boolean existQuestion(Evento event, String question) {
         return false;
     }
 }
-
-@Override
-public void open() {
-	/*System.out.println("Opening DataAccess instance => isDatabaseLocal: " + c.isDatabaseLocal()
-    + " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
-	
-	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-	
-	try {
-	sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-	} catch (Exception e) {
-	e.printStackTrace();
-	StandardServiceRegistryBuilder.destroy(registry);
-}*/ //No entiendo revisar lab
-}
-
-@Override
-public void close() {
-	/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	if (session != null) {
-		session.close();
-        System.out.println("DataBase closed");
-    }*/
-	
-}
-
-@Override
-public void emptyDatabase() {
-	// TODO Auto-generated method stub
-	
-}
-
-
-
 		
 }
