@@ -15,7 +15,7 @@
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
   <mapping class="dominio.FindEventos"/>
-  <mapping class="dominio.Eventos" />
-  <mapping class="dominio.Questions" />
+  <mapping class="dominio.Evento" />
+  <mapping class="dominio.Pregunta" />
  </session-factory>
 </hibernate-configuration>

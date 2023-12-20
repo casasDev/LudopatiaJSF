@@ -20,7 +20,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 @Entity
-public class Eventos {
+public class Evento {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,25 +29,29 @@ public class Eventos {
 	private Date eventDate;
 	
 	//Illegal attempt to map a non collection as a @OneToMany, @ManyToMany or @CollectionOfElements: dominio.Eventos.preguntas
-	@OneToMany(targetEntity=Questions.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	//Creo que da error porque este es oneToMany y el otro es OneToOne nose 
+	@OneToMany(targetEntity=Pregunta.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@Fetch(value = FetchMode.SELECT)
-	private Questions preguntas;
-	//private List<Questions> questions=new ArrayList<Questions>();
+	//private Questions preguntas; //AL O MEJOR ES PORQUE NO ES LISTA
+	private List<Pregunta> questions=new ArrayList<Pregunta>();
+	//private Set<Questions> preguntas;
+	//AUNQUE AL O MEJOR ESTE NO DEBE GUARDAR LAS PREGUNTAS YA QUE LAS PREGUNTAS YA TIENEN ASOCIADOS UN EVENTO DE POR SI?
+	//SE PODRIA DECIR QUE ES 1:1? NO PORQUE UN EVENTO PUEDE TENER N PREGUNTAS 1:N, Y UNA UNICA PREGUNTA SOLO PUEDE ESTAR ASOCIADA A UN UNICO EVENTO 1:1
 
-	public Questions getQuestions() {
-		return preguntas;
+	public List<Pregunta> getQuestions() {
+		return questions;
 	}
 
-	public void setQuestions(Questions questions) {
-		this.preguntas = questions;
+	public void addQuestions(Pregunta q) {
+		this.questions.add(q);
 	}
 
-	public Eventos() {
+	public Evento() {
 		//super();
 	}
 
 
-	public Eventos( String description,Date eventDate) {
+	public Evento( String description,Date eventDate) {
 		this.description = description;
 		this.eventDate=eventDate;
 	}
@@ -71,7 +75,7 @@ public class Eventos {
 	
 	
 	public String toString(){
-		return eventNumber+"/"+description+"/"+eventDate+"/"+preguntas;
+		return eventNumber+"/"+description+"/"+eventDate+"/"+questions;
 	}
 	
 	/**
@@ -81,8 +85,8 @@ public class Eventos {
 	 * @param betMinimum of that question
 	 * @return Bet
 	 */
-	public Questions addQuestion(String question, float betMinimum)  {
-        Questions q=new Questions(question,betMinimum, this);
+	public Pregunta addQuestion(String question, float betMinimum)  {
+        Pregunta q=new Pregunta(question,betMinimum, this);
         
         return q;
 	}
@@ -94,14 +98,13 @@ public class Eventos {
 	 * @param question that needs to be checked if there exists
 	 * @return true if the question exists and false in other case
 	 */
-	public boolean DoesQuestionExists(Questions question)  {
-		return false;	
-		
-		/*for (Questions q:this.getQuestions()){
-			if (preguntas.compareTo(question)==0)
+	public boolean DoesQuestionExists(String question)  {
+
+		for (Pregunta q:this.getQuestions()){
+			if (q.compareTo(question)==0)
 				return true;
 		}
-		return false;*/
+		return false;
 		
 		//if (preguntas.compareTo(question)) return true;
 		
@@ -125,7 +128,7 @@ public class Eventos {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Eventos other = (Eventos) obj;
+		Evento other = (Evento) obj;
 		if (eventNumber != other.eventNumber)
 			return false;
 		return true;

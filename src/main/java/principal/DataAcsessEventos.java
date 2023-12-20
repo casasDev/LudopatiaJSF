@@ -27,11 +27,11 @@ public class DataAcsessEventos {
 	session.getTransaction().commit();
 	return u; }*/
 	
-	private Eventos createAndStoreEventoSinPregunta(String descripcion, Date fecha) {
+	private Evento createAndStoreEventoSinPregunta(String descripcion, Date fecha) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Eventos e = new Eventos();
+		Evento e = new Evento();
 		e.setDescription(descripcion);
 		e.setEventDate(fecha);
 		session.save(e);
@@ -39,11 +39,11 @@ public class DataAcsessEventos {
 		return e;
 	}
 	
-	public Questions createQuestionWithEvent(String preg, float bet, Eventos ev) {
+	public Pregunta createQuestionWithEvent(String preg, float bet, Evento ev) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Questions q = new Questions();
+		Pregunta q = new Pregunta();
 
 		q.setQuestion(preg);
 		q.setBetMinimum(bet);
@@ -73,10 +73,10 @@ public class DataAcsessEventos {
 		
 		DataAcsessEventos e = new DataAcsessEventos ();
 		System.out.println("Creación de eventos:"); //
-		e.createQuestionWithEvent("queso", 2, new Eventos());
+		e.createQuestionWithEvent("queso", 2, new Evento());
 		e.createAndStoreEventoSinPregunta("Alaves vs Baskonia",new Date());
 		e.createAndStoreEventoSinPregunta("Patata vs Patata",new Date());
-		e.createQuestionWithEvent("maincra", 2, new Eventos());
+		e.createQuestionWithEvent("maincra", 2, new Evento());
 		e.createAndStoreEventoSinPregunta("Maikel",new Date());
 		e.createAndStoreEventoSinPregunta("Kakson",new Date());
 		
@@ -85,7 +85,7 @@ public class DataAcsessEventos {
 	
 	}
 	
-	public List<Eventos> getEventosLogin() {
+	public List<Evento> getEventosLogin() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		List result = session.createQuery("from EventoLogin").list();
@@ -95,14 +95,14 @@ public class DataAcsessEventos {
 		}
 	
 
-		public List<Questions> getUsuarios() {
+		public List<Pregunta> getUsuarios() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		List result = session.createQuery("from Usuario").list();
 		session.getTransaction().commit();
 		return result;
 		}
-		public List<Eventos> getEventosLoginv1(String nombreUsuario) {
+		public List<Evento> getEventosLoginv1(String nombreUsuario) {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query q = session.createQuery("select lg from EventoLogin lg inner join lg.usuario u where u.nombre= :nombreUsuario");
@@ -111,7 +111,7 @@ public class DataAcsessEventos {
 			session.getTransaction().commit();
 			return result;
 			}
-		public List<Eventos> getEventosLoginv2(String nombreUsuario) {
+		public List<Evento> getEventosLoginv2(String nombreUsuario) {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query q =
@@ -122,13 +122,13 @@ public class DataAcsessEventos {
 			return result;
 			
 			}
-		public List<Eventos> getEventosLoginv3(String nombreUsuario) {
+		public List<Evento> getEventosLoginv3(String nombreUsuario) {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			Criteria c =session.createCriteria(Eventos.class)
+			Criteria c =session.createCriteria(Evento.class)
 			.createCriteria("usuario")
 			.add(Restrictions.eq("nombre",nombreUsuario));
-			List<Eventos> result=c.list();
+			List<Evento> result=c.list();
 			session.getTransaction().commit();
 			return result;
 		}
@@ -137,7 +137,7 @@ public class DataAcsessEventos {
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 				session.beginTransaction();
 				try {
-					Questions u=(Questions)session.get(Questions.class, usuario);
+					Pregunta u=(Pregunta)session.get(Pregunta.class, usuario);
 					//Query q = session.createQuery("delete from EventoLogin where usuario = :usua");
 					//q.setParameter("usua", u);
 					//q.executeUpdate();
@@ -151,16 +151,16 @@ public class DataAcsessEventos {
 				return true;
 		}
 		
-		public Questions createAndStoreUsuarioConEventoLogin
+		public Pregunta createAndStoreUsuarioConEventoLogin
 		(String nombre, String password, String tipo, boolean login, Date fecha)
 		{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Questions u = new Questions();
+		Pregunta u = new Pregunta();
 		u.setQuestion(nombre);
 		u.setBetMinimum(54);
 		u.setResult("Perdio messi");
-		Eventos lg = new Eventos();
+		Evento lg = new Evento();
 		lg.setDescription("ANKARA MESSI");
 		lg.setEventDate(new Date());
 		lg.setQuestions(u);
@@ -176,7 +176,7 @@ public class DataAcsessEventos {
 		return u;
 		}
 		
-		public Questions getUsuario(String usuario) {
+		public Pregunta getUsuario(String usuario) {
 			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
@@ -184,7 +184,7 @@ public class DataAcsessEventos {
 			q.setParameter("usuario", usuario);
 			List result=q.list();
 			session.getTransaction().commit();
-			return (Questions)result.get(0);
+			return (Pregunta)result.get(0);
 		
 		}
 		

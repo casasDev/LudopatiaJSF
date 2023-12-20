@@ -2,13 +2,13 @@ package businessLogic;
 
 
 
-import dominio.Questions;
+import dominio.Pregunta;
 import java.util.Date;
 import java.util.Vector;
 
 import javax.servlet.annotation.WebServlet;
 
-import dominio.Eventos;
+import dominio.Evento;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -27,7 +27,7 @@ public interface BLFacade {
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
 	//@WebMethod 
-	Questions createQuestion(Eventos event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
+	Pregunta createQuestion(Evento event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 	
 	
 	/**
@@ -37,7 +37,7 @@ public interface BLFacade {
 	 * @return collection of events
 	 */
 	//@WebMethod 
-	public Vector<Eventos> getEvents(Date date);
+	public Vector<Evento> getEvents(Date date);
 	
 	/**
 	 * This method retrieves from the database the dates a month for which there are events

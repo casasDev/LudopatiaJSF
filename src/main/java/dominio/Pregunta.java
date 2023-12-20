@@ -16,7 +16,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-public class Questions {
+public class Pregunta {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,13 +24,13 @@ public class Questions {
 	private String question; 
 	private float betMinimum;
 	private String result;
-	@OneToOne(targetEntity=Eventos.class, fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@ManyToOne(targetEntity=Evento.class, fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@Fetch(value = FetchMode.SELECT)
-	private Eventos event;
+	private Evento event;
 
-	public Questions(){}
+	public Pregunta(){}
 	
-	public Questions(Long queryNumber, String query, float betMinimum, Eventos event) {
+	public Pregunta(Long queryNumber, String query, float betMinimum, Evento event) {
 		//super();
 		this.questionNumber = queryNumber;
 		this.question = query;
@@ -38,7 +38,7 @@ public class Questions {
 		this.event = event;
 	}
 	
-	public Questions(String query, float betMinimum,  Eventos event) {
+	public Pregunta(String query, float betMinimum,  Evento event) {
 		//super();
 		this.question = query;
 		this.betMinimum=betMinimum;
@@ -46,7 +46,7 @@ public class Questions {
 		this.event = event;
 	}
 	
-	public Questions(String pregu, float betMinimun) {
+	public Pregunta(String pregu, float betMinimun) {
 		this.question = pregu;
 		this.betMinimum=betMinimum;
 		
@@ -81,12 +81,12 @@ public class Questions {
 		this.result = result;
 	}
 
-	public Eventos getEvent() {
+	public Evento getEvent() {
 		return event;
 	}
 
 
-	public void setEvent(Eventos event) {
+	public void setEvent(Evento event) {
 		this.event = event;
 	}
 
@@ -97,6 +97,14 @@ public class Questions {
 	
 	public Long getId() {
 		return questionNumber;
+	}
+
+	public int compareTo(String question2) {
+		
+		if (this.question ==question2) {
+			return 0;
+		}
+		else return 1;
 	}
 	
 }

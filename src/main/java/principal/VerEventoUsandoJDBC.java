@@ -2,7 +2,7 @@ package principal;
 import java.sql.*;
 import java.util.Date;
 
-import dominio.Eventos;
+import dominio.Evento;
 
 
 
@@ -28,7 +28,7 @@ public class VerEventoUsandoJDBC {
 		catch (Exception e) {e.printStackTrace();} 
 		
 	}
-	public static String getEventoJDBC(Eventos e) {
+	public static String getEventoJDBC(Evento e) {
 		Connection c;
 		PreparedStatement s;
 		ResultSet rs;
