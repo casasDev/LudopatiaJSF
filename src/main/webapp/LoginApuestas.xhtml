@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Aplicación JavaServer Faces</title>
+	</h:head>
+	<h:body>
+		<h:form id="miForm">
+			<h3>Por favor, introduce tu nombre y tu contraseña (número entre
+				1 y 500)</h3>
+			<table>
+				<tr>
+					<td>Nombre:</td>
+					<td><h:inputText id="nombre" value="#{login.nombre}" var="nom">
+							<f:validateRegex pattern="^[a-zA-Z]+$" />
+						</h:inputText></td>
+					<td><h:message for="nombre" style="color:red" /></td>
+				</tr>
+				<tr>
+					<td>Contraseña:</td>
+					<td><h:inputText id="pass" redisplay="true"
+							value="#{login.password}" var="cont">
+							<f:ajax execute="pass" render="mensajes" />
+						</h:inputText></td>
+				</tr>
+				
+				<tr>
+					<td><h:messages style="color:blue" /></td>
+				</tr>			
+			</table>
+			
+			
+			<p>
+				<h:commandButton value="Aceptar" action="#{login.comprobar(nom,cont)}" />
+				
+			</p>
+			<h:messages id="mensajes" style="color:blue" />
+		</h:form>
+	</h:body>
+</f:view>
+</html>

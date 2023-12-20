@@ -14,7 +14,8 @@
   <property name="hibernate.hbm2ddl.auto">create</property>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
-  <mapping class="dominio.FindEventos"/>
+  <mapping class="dominio.Usuario"/>
+  <mapping class="dominio.Login" />
   <mapping class="dominio.Evento" />
   <mapping class="dominio.Pregunta" />
  </session-factory>

@@ -13,6 +13,7 @@ import dataAccess.DataAccessHibernate;
 import dataAccess.DataAccessHibernateImplementation;
 import dominio.Evento;
 import dominio.Pregunta;
+import dominio.Usuario;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 
@@ -64,6 +65,17 @@ public class BLFacadeImplementation {
 	    public List<Pregunta> getPreguntasEvento(Evento ev){
 	    	return dbManager.getPreguntasEvento(ev);
 	    	
+	    }
+	    
+	    public Usuario registrarUsuarioNuevo(String nom, String cont) {
+	    	
+	    	return dbManager.registrarUsuarioNuevo(nom, cont);
+	    	
+	    } 
+	    
+	    public boolean DoesUserExist(String nom, String cont) {
+	    	
+	    	return dbManager.doesUserExist(nom, cont);
 	    }
 	    
 
