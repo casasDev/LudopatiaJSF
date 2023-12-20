@@ -41,7 +41,7 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header"></f:facet>
-						<h:commandButton value="Escoger" action="#{query.onEventSelect(ev)}"> <p:ajax update=":miForm:tablaPreg" /></h:commandButton>
+						<p:commandButton value="Escoger" action="#{query.onEventSelect(ev)}" update=":miForm:tablaPreg" />
 					</h:column>
 				</h:dataTable>
 	

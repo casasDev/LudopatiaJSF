@@ -67,6 +67,10 @@ public class QueryQuestionBean {
 		return preguntas;
 
 	}
+	
+	public void setPreguntas(List<Pregunta> preguntas) {
+	    this.preguntas = preguntas;
+	}
 
 	public void onDateSelect(SelectEvent event) {
 		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fecha escogida: " + event.getObject()));
@@ -85,6 +89,7 @@ public class QueryQuestionBean {
 
 	public QueryQuestionBean() {
 		this.eventos = new ArrayList<Evento>();
+		this.preguntas = new ArrayList<Pregunta>();
 		
 	}
 	
@@ -92,9 +97,10 @@ public class QueryQuestionBean {
 		
 		//eventoSel = (Evento) event.getObject();
 		eventoSel = event;
-		preguntas = eventoSel.getQuestions();
-		System.out.println(eventoSel);
-		System.out.println("AAAAAAAAAAAAAAAAAHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhhhaahsjhsajkbsdjhvd");
+		//System.out.println(eventoSel.getQuestions());
+		//System.out.println(eventoSel);
+		//System.out.println("AAAAAAAAAAAAAAAAAHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhhhaahsjhsajkbsdjhvd");
+		preguntas = bl.getPreguntasEvento(eventoSel);
 		
 		if (preguntas.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay preguntas para el evento: " + event));

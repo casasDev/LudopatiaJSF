@@ -228,6 +228,34 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	    return res;
 	}
 	
+public List<Pregunta> getPreguntasEvento(Evento ev){
+	
+	List<Pregunta> res = new ArrayList<Pregunta>();
+
+    try {
+    	
+    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    	session.beginTransaction();
+        Query query =   session.createQuery("FROM Pregunta WHERE event = :ev"/*, Eventos.class*/);
+        query.setParameter("ev", ev);
+        List<Pregunta> preg = query.list();
+        
+        for (Pregunta p : preg) {
+            System.out.println(p.toString());
+            res.add(p);
+        }
+
+        session.close();
+    } 
+    
+    catch (Exception e) {
+        e.printStackTrace();
+        // Manejar la excepción según tus necesidades
+    }
+
+    return res;
+}
+	
 public boolean existQuestion(Evento event, String question) {
 
     try {

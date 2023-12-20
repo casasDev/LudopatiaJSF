@@ -61,6 +61,11 @@ public class BLFacadeImplementation {
 	        return dbManager.getEventsMonth(date);
 	    }
 	    
+	    public List<Pregunta> getPreguntasEvento(Evento ev){
+	    	return dbManager.getPreguntasEvento(ev);
+	    	
+	    }
+	    
 
 	    
 	    //@WebMethod
