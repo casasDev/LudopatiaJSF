@@ -21,25 +21,45 @@
 					<td><p:calendar id="fecha" value="#{query.fecha}"
 							navigator="true" mode="inline">
 							<p:ajax event="dateSelect" listener="#{query.onDateSelect}"
-								update="mensajes" />
+								update="tablaEventos" />
 						</p:calendar></td>
 				</tr>
-				<div class="tabla-con-scroll">
-					<h:dataTable value="#{query.eventos}" var="event" border="1">
-						<h:column>
-							<!-- Columna 1 -->
-							<f:facet name="header">NumeroEvento</f:facet>
-				            #{event.num}
-				        </h:column>
-
-						<h:column>
-							<!-- Columna 2 -->
-							<f:facet name="header">Evento</f:facet>
-				            #{event.evento}
-				        </h:column>
-					</h:dataTable>
-				</div>
 			</div>
+			<tr>
+
+<!-- TABLA EVENTOS -->
+				<h:dataTable id="tablaEventos" value="#{query.eventos}" var="ev"
+					border="1">
+					<f:facet name="header">Tabla de eventos 1:</f:facet>
+					<h:column>
+						<f:facet name="header">Numero evento</f:facet>
+							#{ev.eventNumber}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Evento</f:facet>
+							#{ev.description}
+					</h:column>
+					<h:column>
+						<f:facet name="header"></f:facet>
+						<h:commandButton value="Escoger" action="#{query.onEventSelect(ev)}"> <p:ajax update=":miForm:tablaPreg" /></h:commandButton>
+					</h:column>
+				</h:dataTable>
+	
+	<!-- TABLA PREGUNTAS-->			
+				<p:dataTable id="tablaPreg" value="#{query.preguntas}"
+						var="preg" border="1">
+						<f:facet name="header">Tabla de preguntas:</f:facet>
+						<p:column headerText="Código">#{preg.questionNumber}</p:column>
+						<p:column headerText="Descripcion">#{preg.question}</p:column>
+						
+						
+					</p:dataTable>
+					
+			
+						
+						
+			</tr>
+
 			<tr>
 				<td><h:messages style="color:blue" /></td>
 			</tr>

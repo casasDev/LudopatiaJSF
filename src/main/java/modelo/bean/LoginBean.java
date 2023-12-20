@@ -70,7 +70,7 @@ public class LoginBean {
 	public LoginBean() {
 		tipos.add(new TipoUsuario(1,"estudiante"));
 		tipos.add(new TipoUsuario(2,"profesor"));
-		}
+	}
 		public TipoUsuario getTipo() {
 		return tipo;
 		}

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.jdo.annotations.Queries;
@@ -21,13 +22,19 @@ import domain.Event;
 import dominio.Evento;
 import dominio.Pregunta;
 
+@ManagedBean
 public class QueryQuestionBean {
+	
+	BLFacadeImplementation bl = new BLFacadeImplementation();
+
 
 	private Date fecha;
 
 	private List<Evento> eventos;
 
 	private List<Pregunta> preguntas;
+	
+	private Evento eventoSel;
 
 	public Date getFecha() {
 		return fecha;
@@ -37,6 +44,18 @@ public class QueryQuestionBean {
 		this.fecha = fecha;
 	}
 
+	
+	public Evento getEventoSel() {
+		return eventoSel;
+	}
+	
+	public void setEventoSel(Evento ev) {
+		
+		eventoSel = ev;
+		
+	}
+	
+	
 	public List<Evento> getEventos() {
 
 		return eventos;
@@ -50,27 +69,58 @@ public class QueryQuestionBean {
 	}
 
 	public void onDateSelect(SelectEvent event) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fecha escogida: " + event.getObject()));
+		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fecha escogida: " + event.getObject()));
 		//cargarEventos()
+		
+		Date fechaSelec = (Date) event.getObject();
+		
+		eventos = bl.getEvents(fechaSelec);
+		
+		if (eventos.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay eventos para la fecha: " + event.getObject()));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Eventos para la fecha " + event.getObject() + ": " + eventos));
+        }
 	}
 
 	public QueryQuestionBean() {
 		this.eventos = new ArrayList<Evento>();
-		eventos.add(new Evento("Tu puta madre",new Date()));
+		
+	}
+	
+	public void onEventSelect(/*SelectEvent*/ Evento event) {
+		
+		//eventoSel = (Evento) event.getObject();
+		eventoSel = event;
+		preguntas = eventoSel.getQuestions();
+		System.out.println(eventoSel);
+		System.out.println("AAAAAAAAAAAAAAAAAHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhhhaahsjhsajkbsdjhvd");
+		
+		if (preguntas.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay preguntas para el evento: " + event));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Preguntas para el evento " + eventoSel + ": " + preguntas.size()));
+        }
+		
+		
+	}
+	
+	
+	
 	}
 
-	//private void cargarEventos() {
-		/*
-		 * if (fecha != null) { Calendar calendar = Calendar.getInstance();
-		 * calendar.setTime(fecha);
-		 * 
-		 * // Llama al servicio para obtener eventos de la base de datos eventos =
-		 * eventService.getEventsByDate(calendar.getTime()); } else { // Manejo de
-		 * error, la fecha es nula FacesContext.getCurrentInstance().addMessage(null,
-		 * new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-		 * "La fecha seleccionada es nula.")); }
-		 */
-	}
+	/*private void cargarEventos() {
+		
+		 if (fecha != null) { Calendar calendar = Calendar.getInstance();
+		  calendar.setTime(fecha);
+		  eventService.getEventsByDate(calendar.getTime()); 
+		  } 
+		 else {
+		 FacesContext.getCurrentInstance().addMessage(null,
+		  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+		  "La fecha seleccionada es nula.")); }
+		 
+	}*/
 
 	/*
 	 * public void listener(AjaxBehaviorEvent event) {
@@ -80,10 +130,6 @@ public class QueryQuestionBean {
 	 * }
 	 */
 
-	// public void onEventSelect(SelectEvent event) {
-	// this.tipo=(TipoUsuario)event.getObject();
-	// FacesContext.getCurrentInstance().addMessage("miForm:mensajes",
-	// new FacesMessage("El tipo del usuario
-	// (tabla):"+tipo.getCodigo()+"/"+tipo.getTipoUsu()));}
+
 
 //}

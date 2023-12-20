@@ -29,11 +29,12 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
     //ConfigXML c = ConfigXML.getInstance();
 
     public DataAccessHibernate(boolean initializeMode) {
-     
+    	initializeDB();
     }
 
 	public DataAccessHibernate()  {	
 		 new DataAccessHibernate(false);
+		 //initializeDB();
 	}
 	
 	@Override
@@ -63,12 +64,14 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
             Evento ev8=new Evento( "Girona-Leganés", UtilDate.newDate(year,month,17));
             Evento ev9=new Evento( "Real Sociedad-Levante", UtilDate.newDate(year,month,17));
             Evento ev10=new Evento( "Betis-Real Madrid", UtilDate.newDate(year,month,17));
+            
             Evento ev11=new Evento( "Atletico-Athletic", UtilDate.newDate(year,month,1));
             Evento ev12=new Evento( "Eibar-Barcelona", UtilDate.newDate(year,month,1));
             Evento ev13=new Evento( "Getafe-Celta", UtilDate.newDate(year,month,1));
             Evento ev14=new Evento( "Alavés-Deportivo", UtilDate.newDate(year,month,1));
             Evento ev15=new Evento( "Español-Villareal", UtilDate.newDate(year,month,1));
             Evento ev16=new Evento( "Las Palmas-Sevilla", UtilDate.newDate(year,month,1));
+            
             Evento ev17=new Evento( "Málaga-Valencia", UtilDate.newDate(year,month,28));
             Evento ev18=new Evento( "Girona-Leganés", UtilDate.newDate(year,month,28));
             Evento ev19=new Evento( "Real Sociedad-Levante", UtilDate.newDate(year,month,28));
@@ -76,8 +79,10 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
             Pregunta q1=ev1.addQuestion("¿Quién ganará el partido?",1);
             Pregunta q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
+            
             Pregunta q3=ev11.addQuestion("¿Quién ganará el partido?",1);
             Pregunta q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
+            
             Pregunta q5=ev17.addQuestion("¿Quién ganará el partido?",1);
             Pregunta q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
 
@@ -111,7 +116,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
             session.persist(ev20);
             
             session.getTransaction().commit();
-            session.close();
+            //session.close();
 
             System.out.println("Db initialized");
         } catch (Exception e) {
@@ -167,7 +172,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	    	
 	    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	    	session.beginTransaction();
-	        Query query =   session.createQuery("FROM Eventos WHERE eventDate = :date"/*, Eventos.class*/);
+	        Query query =   session.createQuery("FROM Evento WHERE eventDate = :date"/*, Eventos.class*/);
 	        query.setParameter("date", date);
 	        List<Evento> events = query.list();
 	        
@@ -204,7 +209,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 	        Date firstDayMonthDate = UtilDate.firstDayMonth(date);
 	        Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
-	        Query query =session.createQuery("SELECT DISTINCT ev.eventDate FROM Eventos ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
+	        Query query =session.createQuery("SELECT DISTINCT ev.eventDate FROM Evento ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*,Date.class*/);
 	        query.setParameter("firstDay", firstDayMonthDate);
 	        query.setParameter("lastDay", lastDayMonthDate);
 	        List<Date> dates = query.list();

@@ -50,6 +50,8 @@
 								render="mensajes" />
 						</h:selectOneMenu></td>
 				</tr>
+				
+				
 				<tr>
 					<h:dataTable id="tabla" value="#{login.tipos}" var="item"
 						border="1">
@@ -79,7 +81,13 @@
 					<td><h:outputText id="escogido" value="#{login.tipo}"
 							style="color:red" /></td>
 				</tr>
+				
+				
+				
+				
 			</table>
+			
+			
 			<p>
 				<h:commandButton value="Aceptar" action="#{login.comprobar}" />
 				<h:commandButton value="Pirata" action="error" immediate="true"

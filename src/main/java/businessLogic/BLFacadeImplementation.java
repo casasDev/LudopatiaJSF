@@ -18,52 +18,47 @@ import exceptions.QuestionAlreadyExist;
 
 public class BLFacadeImplementation {
 	   private DataAccessHibernate dbManager;
-	   private Session ses;
+
 
 	    public BLFacadeImplementation() {
 
-	    	 ses  = HibernateUtil.getSessionFactory().getCurrentSession();
 	    	dbManager = new DataAccessHibernate();
 	    }
 
 	    public BLFacadeImplementation(DataAccessHibernateImplementation da) {
-	    	 ses  = HibernateUtil.getSessionFactory().getCurrentSession();
-	    	 dbManager = new DataAccessHibernate();
+	    	 
+	    	 dbManager = (DataAccessHibernate) da;
 	    }
 
 	    public Pregunta createQuestion(Evento event, String question, float betMinimum)
 	            throws EventFinished, QuestionAlreadyExist {
-	    	ses.beginTransaction();
-	        
-	        Pregunta qry = null;
+	    	try {
+	            if (new Date().compareTo(event.getEventDate()) > 0) {
+	                throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+	            }
 
-	        if (new Date().compareTo(event.getEventDate()) > 0)
-	            throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+	            // El método createQuestion debería manejar la sesión internamente
+	            Pregunta qry = dbManager.createQuestion(event, question, betMinimum);
 
-	        qry = dbManager.createQuestion(event, question, betMinimum);
-
-	        ses.getTransaction().commit();
-	        ses.close();
-	        return qry;
+	            return qry;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            // Manejar la excepción según tus necesidades.
+	            return null; // O lanzar otra excepción según el flujo de tu aplicación.
+	        }
+	    	
 	    }
 	    
 
 	    public List<Evento> getEvents(Date date) {
-	    	ses.beginTransaction();
-
-	        List<Evento> events = dbManager.getEvents(date);
-	        
-	        ses.close();
-	        return events;
+	        return dbManager.getEvents(date);
 	    }
 	    
 
 
 	    public List<Date> getEventsMonth(Date date) {
-	    	ses.beginTransaction();
-	        List<Date> dates = dbManager.getEventsMonth(date);
-	        ses.close();
-	        return dates;
+	    
+	        return dbManager.getEventsMonth(date);
 	    }
 	    
 
