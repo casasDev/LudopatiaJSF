@@ -12,6 +12,7 @@ import configuration.ConfigXML;
 import dataAccess.DataAccessHibernate;
 import dataAccess.DataAccessHibernateImplementation;
 import dominio.Evento;
+import dominio.Login;
 import dominio.Pregunta;
 import dominio.Usuario;
 import exceptions.EventFinished;
@@ -78,6 +79,11 @@ public class BLFacadeImplementation {
 	    	return dbManager.doesUserExist(nom, cont);
 	    }
 	    
+	    public Login crearEventoLogin(String nom, String cont, boolean login) {
+	    	
+	    	return dbManager.crearEventoLogin(nom, cont, login);
+	    	
+	    }
 
 	    
 	    //@WebMethod

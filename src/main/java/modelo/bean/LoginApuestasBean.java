@@ -17,6 +17,7 @@ import dominio.Usuario;
 public class LoginApuestasBean {
 	private String nombre;
 	private String password;
+	private boolean estaHaciendoLogin;
 	
 	private static List<Usuario> usu=new ArrayList<Usuario>();
 
@@ -52,9 +53,10 @@ public class LoginApuestasBean {
 		else {
 			
 			System.out.println("EXISTE EL USU");
-			//DAR ACCESO A MENU DE APUESTAS
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El usuario de nombre " + nombre + " existe"));
-
+            
+            u.crearEventoLogin(nombre,password,true);
+            
 			return "ok";
 			
 		}

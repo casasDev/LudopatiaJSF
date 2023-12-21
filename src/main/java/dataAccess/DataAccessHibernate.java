@@ -19,6 +19,7 @@ import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
 import dominio.Evento;
+import dominio.Login;
 import dominio.Pregunta;
 import dominio.Usuario;
 import exceptions.QuestionAlreadyExist;
@@ -91,6 +92,18 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			Usuario u2 = new Usuario("Asier", "1234");
 			Usuario u3 = new Usuario("Abraham", "1234");
 			Usuario u4 = new Usuario("Maider", "1234");
+			
+			Login l1 = new Login(u1, true);
+			Login l2 = new Login(u1, false);
+			Login l3 = new Login(u2, true);
+			Login l4 = new Login(u3, true);
+			Login l5 = new Login(u4, true);
+			
+			session.persist(l5);
+			session.persist(l4);
+			session.persist(l3);
+			session.persist(l2);
+			session.persist(l1);
 			
 			session.persist(u1); //Podria ser save?
 			session.persist(u2);
@@ -211,7 +224,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			query.setParameter("cont", cont);
 			List<Usuario> users = query.list();
 
-			if(users.size()>=1) {
+			if(users.size()==1) {
 				//session.close();
 				//session.getTransaction().commit();
 				//session.close();
@@ -233,6 +246,46 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 		
 		return false;
 	
+	}
+	
+	public Login crearEventoLogin(String nom, String cont, boolean login) {
+		
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+
+			Login l = new Login();
+			
+			Query query = session.createQuery("FROM Usuario WHERE nombre = :nom AND pass = :cont"/* , Eventos.class */);
+			query.setParameter("nom", nom);
+			query.setParameter("cont", cont);
+			List<Usuario> users = query.list();
+			
+			if(users.size()==1) {
+				//session.close();
+				//session.getTransaction().commit();
+				//session.close();
+				l.setUsuario(users.get(0));
+				l.setFecha(new Date());
+				l.setLogin(login);
+				
+				session.persist(l);
+
+				session.getTransaction().commit();
+				//session.close();
+				
+				return l; 
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Manejar la excepción según tus necesidades
+			return null;
+		}
+		
+		return null;
+		
 	}
 
 	public List<Evento> getEvents(Date date) {

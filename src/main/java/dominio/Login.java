@@ -36,6 +36,14 @@ public class Login {
 
 	public Login() {
 	}
+	
+	public Login(Usuario us,boolean l) {
+		
+		this.usuario=us;
+		setLogin(l);
+		this.fecha=new Date();
+		
+	}
 
 	public Long getId() {
 		return id;
