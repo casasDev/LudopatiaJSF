@@ -6,18 +6,18 @@ xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
 <h:head>
-    <title>Menu</title>
+    <title>Menu~Bienvenido al hermoso mundo de la ludopatia</title>
     <h:outputScript library="javax.faces" name="jsf.js"/>
 </h:head>
 <h:body>
     <h:form>
-        <h:outputText value="Haz clic en un botón:"/>
+        <h:outputText value="Escoge que quieres hacer:"/>
         <br/>
-        <h:commandButton value="Ir a Página 1" action="#{navigationBean.goToPage1}">
+        <h:commandButton value="Ir a Página 1" action="#{menu.irVerPreg}">
             <f:ajax execute="@this" render="@form"/>
         </h:commandButton>
         <br/>
-        <h:commandButton value="Ir a Página 2" action="#{navigationBean.goToPage2}">
+        <h:commandButton value="Ir a Página 2" action="#{menu.irCrearPreg}">
             <f:ajax execute="@this" render="@form"/>
         </h:commandButton>
     </h:form>
