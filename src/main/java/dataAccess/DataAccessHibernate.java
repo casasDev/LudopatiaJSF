@@ -56,26 +56,26 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 				year += 1;
 			}
 
-			Evento ev1 = new Evento("Atlético-Athletic", UtilDate.newDate(year, month, 17));
+			Evento ev1 = new Evento("Atletico-Athletic", UtilDate.newDate(year, month, 17));
 			Evento ev2 = new Evento("Eibar-Barcelona", UtilDate.newDate(year, month, 17));
 			Evento ev3 = new Evento("Getafe-Celta", UtilDate.newDate(year, month, 17));
-			Evento ev4 = new Evento("Alavés-Deportivo", UtilDate.newDate(year, month, 17));
-			Evento ev5 = new Evento("Español-Villareal", UtilDate.newDate(year, month, 17));
+			Evento ev4 = new Evento("Alaves-Deportivo", UtilDate.newDate(year, month, 17));
+			Evento ev5 = new Evento("Espanyol-Villareal", UtilDate.newDate(year, month, 17));
 			Evento ev6 = new Evento("Las Palmas-Sevilla", UtilDate.newDate(year, month, 17));
 			Evento ev7 = new Evento("Malaga-Valencia", UtilDate.newDate(year, month, 17));
-			Evento ev8 = new Evento("Girona-Leganés", UtilDate.newDate(year, month, 17));
+			Evento ev8 = new Evento("Girona-Leganes", UtilDate.newDate(year, month, 17));
 			Evento ev9 = new Evento("Real Sociedad-Levante", UtilDate.newDate(year, month, 17));
 			Evento ev10 = new Evento("Betis-Real Madrid", UtilDate.newDate(year, month, 17));
 
 			Evento ev11 = new Evento("Atletico-Athletic", UtilDate.newDate(year, month, 1));
 			Evento ev12 = new Evento("Eibar-Barcelona", UtilDate.newDate(year, month, 1));
 			Evento ev13 = new Evento("Getafe-Celta", UtilDate.newDate(year, month, 1));
-			Evento ev14 = new Evento("Alavés-Deportivo", UtilDate.newDate(year, month, 1));
-			Evento ev15 = new Evento("Español-Villareal", UtilDate.newDate(year, month, 1));
+			Evento ev14 = new Evento("Alaves-Deportivo", UtilDate.newDate(year, month, 1));
+			Evento ev15 = new Evento("Espanyol-Villareal", UtilDate.newDate(year, month, 1));
 			Evento ev16 = new Evento("Las Palmas-Sevilla", UtilDate.newDate(year, month, 1));
 
-			Evento ev17 = new Evento("Málaga-Valencia", UtilDate.newDate(year, month, 28));
-			Evento ev18 = new Evento("Girona-Leganés", UtilDate.newDate(year, month, 28));
+			Evento ev17 = new Evento("Malaga-Valencia", UtilDate.newDate(year, month, 28));
+			Evento ev18 = new Evento("Girona-Leganes", UtilDate.newDate(year, month, 28));
 			Evento ev19 = new Evento("Real Sociedad-Levante", UtilDate.newDate(year, month, 28));
 			Evento ev20 = new Evento("Betis-Real Madrid", UtilDate.newDate(year, month, 28));
 
