@@ -90,6 +90,7 @@ public class CreateQuestionBean {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pregunta creada con éxito"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Por alguna razón que desconozco este evento lo detecta como null. Prueba con otro evento"));
 		}
