@@ -91,7 +91,8 @@ public class CreateQuestionBean {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Es null jeje");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Por alguna razón que desconozco este evento lo detecta como null. Prueba con otro"));
 		}
 	}
+	
 }

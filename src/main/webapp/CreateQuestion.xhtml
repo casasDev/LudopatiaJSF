@@ -26,6 +26,7 @@
 				<f:selectItems id="eventos" value="#{createQuestion.eventos}"
 					var="e" itemLabel="#{e.eventNumber};#{e.description}"
 					itemValue="#{e}" />
+					<p:ajax event="change" update="listaEventos" />
 			</h:selectOneMenu>
 			<table>
 				<tr>
