@@ -38,16 +38,23 @@ public class LoginApuestasBean {
 		this.password = password;
 	}
 
-	public String comprobar(String nom, String pass) {
-		if (!u.DoesUserExist(nom, pass)){
-			
+	public String comprobar() {
+		
+	    System.out.println("Entrando en el método comprobar con nombre: " + nombre + " y contraseña: " + password);
+		
+		if (!u.DoesUserExist(nombre, password)){
+		
+			System.out.println("NO EXISTE EL USU");
 		FacesContext.getCurrentInstance().addMessage(null,
 			new FacesMessage("Error: Usuario no existe"));
 				return null;
 		}
 		else {
 			
+			System.out.println("EXISTE EL USU");
 			//DAR ACCESO A MENU DE APUESTAS
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El usuario de nombre " + nombre + " existe"));
+
 			return "ok";
 			
 		}

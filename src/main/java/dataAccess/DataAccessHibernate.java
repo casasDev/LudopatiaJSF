@@ -212,14 +212,16 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			List<Usuario> users = query.list();
 
 			if(users.size()>=1) {
-				session.close();
+				//session.close();
+				//session.getTransaction().commit();
+				//session.close();
 				return true; 
 			
 			}
 			
-			else {
-		
-			return false;}
+			
+			
+			//session.getTransaction().commit();
 
 		}
 
@@ -229,8 +231,8 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			return false;
 		}
 		
-		
-
+		return false;
+	
 	}
 
 	public List<Evento> getEvents(Date date) {
