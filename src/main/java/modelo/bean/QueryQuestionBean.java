@@ -73,8 +73,6 @@ public class QueryQuestionBean {
 	}
 
 	public void onDateSelect(SelectEvent event) {
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fecha escogida: " + event.getObject()));
-		//cargarEventos()
 		
 		Date fechaSelec = (Date) event.getObject();
 		
@@ -95,11 +93,7 @@ public class QueryQuestionBean {
 	
 	public void onEventSelect(/*SelectEvent*/ Evento event) {
 		
-		//eventoSel = (Evento) event.getObject();
 		eventoSel = event;
-		//System.out.println(eventoSel.getQuestions());
-		//System.out.println(eventoSel);
-		//System.out.println("AAAAAAAAAAAAAAAAAHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhhhaahsjhsajkbsdjhvd");
 		preguntas = bl.getPreguntasEvento(eventoSel);
 		
 		if (preguntas.isEmpty()) {
@@ -135,7 +129,5 @@ public class QueryQuestionBean {
 	 * 
 	 * }
 	 */
-
-
 
 //}

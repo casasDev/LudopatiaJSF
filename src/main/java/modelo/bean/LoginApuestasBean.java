@@ -61,42 +61,9 @@ public class LoginApuestasBean {
 			
 		}
 	
-		
 	}
 	
 	public String registrar() {
-		
-		/*if (!u.DoesUserExist(nombre, password)){
-			
-			System.out.println("No existe el usuario, lo registramos");
-			
-			u.registrarUsuarioNuevo(nombre, password);
-		FacesContext.getCurrentInstance().addMessage(null,
-			new FacesMessage("Error: Usuario no existe"));
-		
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El usuario de nombre " + nombre + " existe"));
-
-				return null;
-		}
-		else {
-			
-			System.out.println("EXISTE EL USU");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El usuario de nombre " + nombre + " existe"));
-            
-            u.crearEventoLogin(nombre,password,true);
-            
-			return "ok";
-			
-		}*/
-		
-		//System.out.println("No existe el usuario, lo registramos");
-		
-		//u.registrarUsuarioNuevo(nombre, password);
-		
-		
-		//if(u.DoesUserExist(nombre, password)) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El usuario de nombre " + nombre + " ha sido registrado"));
-
-		//return "Usuario registrado";
 		
 		    // Recargamos el usuario recién registrado
 		    if (u.DoesUserExist(nombre, password)) {
@@ -111,11 +78,7 @@ public class LoginApuestasBean {
 		    	return "Usuario registrado con exito";
 		    	
 		    }
-	
-		
 		
 	}
-	
-
 	
 }

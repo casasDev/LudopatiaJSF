@@ -12,5 +12,4 @@ public class MenuBean {
     	return "irCreateQuestion";
     }
 	
-	
 }

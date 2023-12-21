@@ -28,16 +28,10 @@ public class Evento {
 	private String description; 
 	private Date eventDate;
 	
-	//Illegal attempt to map a non collection as a @OneToMany, @ManyToMany or @CollectionOfElements: dominio.Eventos.preguntas
-	//Creo que da error porque este es oneToMany y el otro es OneToOne nose 
 	@OneToMany(targetEntity=Pregunta.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@Fetch(value = FetchMode.SELECT)
-	//private Questions preguntas; //AL O MEJOR ES PORQUE NO ES LISTA
 	private List<Pregunta> questions=new ArrayList<Pregunta>();
-	//private Set<Questions> preguntas;
-	//AUNQUE AL O MEJOR ESTE NO DEBE GUARDAR LAS PREGUNTAS YA QUE LAS PREGUNTAS YA TIENEN ASOCIADOS UN EVENTO DE POR SI?
-	//SE PODRIA DECIR QUE ES 1:1? NO PORQUE UN EVENTO PUEDE TENER N PREGUNTAS 1:N, Y UNA UNICA PREGUNTA SOLO PUEDE ESTAR ASOCIADA A UN UNICO EVENTO 1:1
-
+	
 	public List<Pregunta> getQuestions() {
 		return questions;
 	}
@@ -107,11 +101,7 @@ public class Evento {
 		}
 		return false;
 		
-		//if (preguntas.compareTo(question)) return true;
-		
 	}
-		
-
 	
 	@Override
 	public int hashCode() {

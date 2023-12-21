@@ -1,4 +1,4 @@
-package principal;
+package pruebas;
 import java.sql.*;
 import java.util.Date;
 
