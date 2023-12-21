@@ -13,11 +13,11 @@ xmlns:f="http://java.sun.com/jsf/core">
     <h:form>
         <h:outputText value="Escoge que quieres hacer:"/>
         <br/>
-        <h:commandButton value="Ir a Página 1" action="#{menu.irVerPreg}">
+        <h:commandButton value="Ir a ver preguntas" action="#{menu.irVerPreg}">
             <f:ajax execute="@this" render="@form"/>
         </h:commandButton>
         <br/>
-        <h:commandButton value="Ir a Página 2" action="#{menu.irCrearPreg}">
+        <h:commandButton value="Crear preguntas" action="#{menu.irCrearPreg}">
             <f:ajax execute="@this" render="@form"/>
         </h:commandButton>
     </h:form>
