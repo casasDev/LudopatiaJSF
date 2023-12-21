@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import HibernateUtil.HibernateUtil;
 import configuration.ConfigXML;
 import dataAccess.DataAccessHibernate;
-import dataAccess.DataAccessHibernateImplementation;
+import dataAccess.DataAccessHibernateInterface;
 import dominio.Evento;
 import dominio.Login;
 import dominio.Pregunta;
@@ -27,7 +27,7 @@ public class BLFacadeImplementation {
 	    	dbManager = new DataAccessHibernate();
 	    }
 
-	    public BLFacadeImplementation(DataAccessHibernateImplementation da) {
+	    public BLFacadeImplementation(DataAccessHibernateInterface da) {
 	    	 
 	    	 dbManager = (DataAccessHibernate) da;
 	    }

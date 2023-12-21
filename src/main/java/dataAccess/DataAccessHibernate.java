@@ -24,7 +24,7 @@ import dominio.Pregunta;
 import dominio.Usuario;
 import exceptions.QuestionAlreadyExist;
 
-public class DataAccessHibernate implements DataAccessHibernateImplementation {
+public class DataAccessHibernate implements DataAccessHibernateInterface {
 
 	public DataAccessHibernate(boolean initializeMode) {
 		initializeDB();

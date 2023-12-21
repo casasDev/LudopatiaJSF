@@ -11,7 +11,7 @@ import dominio.Evento;
 import dominio.Pregunta;
 import exceptions.QuestionAlreadyExist;
 
-public interface DataAccessHibernateImplementation {
+public interface DataAccessHibernateInterface {
 	
 
 	/**
