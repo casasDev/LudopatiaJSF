@@ -77,7 +77,7 @@ public class Evento {
 	
 	
 	public String toString(){
-		return eventNumber+"/"+description+"/"+eventDate+"/"+questions;
+		return eventNumber.toString()+"/"+description+"/"+eventDate+"/"+questions.toString();
 	}
 	
 	/**
@@ -89,7 +89,6 @@ public class Evento {
 	 */
 	public Pregunta addQuestion(String question, float betMinimum)  {
         Pregunta q=new Pregunta(question,betMinimum, this);
-        
         return q;
 	}
 

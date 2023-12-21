@@ -167,7 +167,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 
-			Evento ev = (Evento) session.get(Evento.class, event.getEventDate());
+			Evento ev = (Evento) session.get(Evento.class, event.getEventNumber());
 
 			if (ev.DoesQuestionExists(question))
 				throw new QuestionAlreadyExist(
@@ -175,6 +175,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
 			//
 			Pregunta q = ev.addQuestion(question, betMinimum);
+			ev.addQuestions(q);
 			session.persist(q);
 			session.persist(ev);
 

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" name="unnamed" id="pf17016857156230" configfile="/LudopatiaJSF/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf17016857156230" configfile="/LudopatiaJSF/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="LoginApuestas.xhtml" x="122" y="178" id="pf17031779230550" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf17031779230561" path="/LoginApuestas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Menu.xhtml" x="338" y="178" id="pf17031779230562" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf17031779230561" path="/Menu.xhtml"/>
+  <links id="pf17031779230561" target="pf17031779230562" source="pf17031779230550" outcome="ok"/>
+</pageflow:Pageflow>

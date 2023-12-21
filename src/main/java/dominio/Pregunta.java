@@ -46,7 +46,7 @@ public class Pregunta {
 		this.event = event;
 	}
 	
-	public Pregunta(String pregu, float betMinimun) {
+	public Pregunta(String pregu, float betMinimum) {
 		this.question = pregu;
 		this.betMinimum=betMinimum;
 		
@@ -94,7 +94,7 @@ public class Pregunta {
 
 
 	public String toString(){
-		return questionNumber+";"+question+";"+Float.toString(betMinimum)+";"+event;
+		return questionNumber.toString()+";"+question+";"+Float.toString(betMinimum);
 	}
 	
 	public Long getId() {

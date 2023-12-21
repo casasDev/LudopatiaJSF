@@ -1,43 +1,50 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Aplicación JavaServer Faces</title>
-    </h:head>
-    <h:body>
-        <h1>Create Question</h1>
-        <h3>Event date</h3>
-        <h:form>
-        <td><p:calendar id="fecha" value="#{createQuestion.fecha}"
-							navigator="false" mode="inline">
-							<p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}"
-								update="events, listaEventos">
-							</p:ajax>
-						</p:calendar></td>
-        <p></p>
-        <td><h:messages id="events" style="color:blue"/></td>
-        <p></p>
-        <h:selectOneMenu id="listaEventos">
-        <f:selectItems value="#{createQuestion.elementos}"/>
-        </h:selectOneMenu>
-        </h:form>
-        <h:form>
-            <table>
-                <tr>
-                    <td>Question:</td>
-                    <td><h:inputText></h:inputText></td>
-                </tr>
-                <tr>
-                    <td>Min bet</td>
-                    <td><h:inputText></h:inputText></td>
-                </tr>
-            </table>
-            <p>
-                <h:commandButton value="Create question"></h:commandButton>
-                <h:commandButton value="Close"></h:commandButton>
-            </p>
-        </h:form>
-    </h:body>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>Create questions</title>
+	</h:head>
+	<h:body>
+		<h1>Create Question</h1>
+		<h3>Event date</h3>
+		<h:form>
+			<td><p:calendar id="fecha" value="#{createQuestion.fecha}"
+					navigator="false" mode="inline">
+					<p:ajax event="dateSelect"
+						listener="#{createQuestion.onDateSelect}"
+						update="events, listaEventos">
+					</p:ajax>
+				</p:calendar></td>
+			<p></p>
+			<td><h:messages id="events" style="color:blue" /></td>
+			<p></p>
+			<h:selectOneMenu id="listaEventos"
+				value="#{createQuestion.eventoElegido}"
+				converter="omnifaces.SelectItemsConverter">
+				<f:selectItems id="eventos" value="#{createQuestion.eventos}"
+					var="e" itemLabel="#{e.eventNumber};#{e.description}"
+					itemValue="#{e}" />
+			</h:selectOneMenu>
+			<table>
+				<tr>
+					<td>Question:</td>
+					<td><h:inputText id="question"
+							value="#{createQuestion.question}" required="true"></h:inputText></td>
+					<h:message for="question" />
+				</tr>
+				<tr>
+					<td>Min bet</td>
+					<td><h:inputText id="minBet" value="#{createQuestion.minBet}"
+							required="true" type="number"></h:inputText></td>
+					<h:message for="minBet" />
+				</tr>
+			</table>
+			<p>
+				<h:commandButton value="Create question" action="#{createQuestion.anadirPreguntaAEvento}"></h:commandButton>
+				<h:commandButton value="Close"></h:commandButton>
+			</p>
+		</h:form>
+	</h:body>
 </f:view>
