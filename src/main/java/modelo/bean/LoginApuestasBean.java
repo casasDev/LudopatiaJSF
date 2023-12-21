@@ -61,7 +61,6 @@ public class LoginApuestasBean {
 			
 		}
 	
-		
 	}
 	
 	public String registrar() {
@@ -81,7 +80,5 @@ public class LoginApuestasBean {
 		    }
 		
 	}
-	
-
 	
 }

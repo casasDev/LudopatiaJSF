@@ -26,18 +26,12 @@ import exceptions.QuestionAlreadyExist;
 
 public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
-	// protected static SessionFactory sessionFactory;
-
-		// ConfigXML c = ConfigXML.getInstance();
-
-
 	public DataAccessHibernate(boolean initializeMode) {
 		initializeDB();
 	}
 
 	public DataAccessHibernate() {
 		new DataAccessHibernate(false);
-		// initializeDB();
 	}
 
 	@Override
@@ -106,7 +100,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			session.persist(l2);
 			session.persist(l1);
 			
-			session.persist(u1); //Podria ser save?
+			session.persist(u1);
 			session.persist(u2);
 			session.persist(u3);
 			session.persist(u4);
@@ -142,7 +136,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			session.persist(ev20);
 
 			session.getTransaction().commit();
-			// session.close(); NO PONER, ROMPES EL CODIGOOOOOOOO
 
 			System.out.println("Db initialized");
 		} catch (Exception e) {
@@ -174,14 +167,12 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 				throw new QuestionAlreadyExist(
 						ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 
-			//
 			Pregunta q = ev.addQuestion(question, betMinimum);
 			ev.addQuestions(q);
 			session.persist(q);
 			session.persist(ev);
 
 			session.getTransaction().commit();
-			//session.close();
 
 			return q;
 		} catch (Exception e) {
@@ -204,7 +195,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			session.persist(u);
 
 			session.getTransaction().commit();
-			//session.close();
 
 			return u;
 		} catch (Exception e) {
@@ -217,7 +207,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
 
 		public boolean doesUserExist(String nom, String cont) {
-			// TODO Auto-generated method stub
 			try {
 
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -228,16 +217,9 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 				List<Usuario> users = query.list();
 
 				if(users.size()==1) {
-					//session.close();
-					//session.getTransaction().commit();
-					//session.close();
 					return true; 
 				
 				}
-				
-				
-				
-				//session.getTransaction().commit();
 
 			}
 
@@ -265,9 +247,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 				List<Usuario> users = query.list();
 				
 				if(users.size()==1) {
-					//session.close();
-					//session.getTransaction().commit();
-					//session.close();
 					l.setUsuario(users.get(0));
 					l.setFecha(new Date());
 					l.setLogin(login);
@@ -275,7 +254,6 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 					session.persist(l);
 
 					session.getTransaction().commit();
-					//session.close();
 					
 					return l; 
 				

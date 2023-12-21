@@ -93,8 +93,6 @@ public class Login {
 		return id + "/" + descripcion + "/" + fecha + "/" + usuario + "/" + login;
 	}
 
-
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,9 +114,5 @@ public class Login {
 			return false;
 		return true;
 	}
-
-
-	
-	
 	
 }

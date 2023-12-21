@@ -1,4 +1,4 @@
-package principal;
+package pruebas;
 
 import HibernateUtil.HibernateUtil; 
 import dominio.*;
