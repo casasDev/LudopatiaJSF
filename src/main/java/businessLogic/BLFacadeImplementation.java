@@ -57,7 +57,6 @@ public class BLFacadeImplementation {
 	    }
 	    
 
-
 	    public List<Date> getEventsMonth(Date date) {
 	    
 	        return dbManager.getEventsMonth(date);
@@ -85,40 +84,11 @@ public class BLFacadeImplementation {
 	    	
 	    }
 
-	    
 	    //@WebMethod
 	    public void initializeBD() {
 	    	
 	        dbManager.initializeDB();
 
 	    }
-
-/*	public BLFacadeImplementation()  {		
-		System.out.println("Creating BLFacadeImplementation instance");
-		ConfigXML c=ConfigXML.getInstance();
-		
-		/*if (c.getDataBaseOpenMode().equals("initialize")) {
-			
-		    dbManager=new DataAccessInterface(new ObjectDbDAOManager());
-			dbManager.initializeDB();
-			dbManager.close();
-			}
-		
-	}*/
-	
-  /*  public BLFacadeImplementation(DataAccessInterface da)  {
-		
-		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
-		ConfigXML c=ConfigXML.getInstance();
-		
-		if (c.getDataBaseOpenMode().equals("initialize")) {
-			da.emptyDatabase();
-			da.open();
-			da.initializeDB();
-			da.close();
-
-		}
-		dbManager=da;		
-	}*/
     
 }

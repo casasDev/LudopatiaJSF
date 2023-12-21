@@ -28,7 +28,8 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 
 	// protected static SessionFactory sessionFactory;
 
-	// ConfigXML c = ConfigXML.getInstance();
+		// ConfigXML c = ConfigXML.getInstance();
+
 
 	public DataAccessHibernate(boolean initializeMode) {
 		initializeDB();
@@ -210,197 +211,198 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			e.printStackTrace();
 			// Manejar la excepción según tus necesidades
 			return null;
+			}
+
 		}
 
-	}
 
-	public boolean doesUserExist(String nom, String cont) {
-		// TODO Auto-generated method stub
-		try {
+		public boolean doesUserExist(String nom, String cont) {
+			// TODO Auto-generated method stub
+			try {
 
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			Query query = session.createQuery("FROM Usuario WHERE nombre = :nom AND pass = :cont"/* , Eventos.class */);
-			query.setParameter("nom", nom);
-			query.setParameter("cont", cont);
-			List<Usuario> users = query.list();
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Query query = session.createQuery("FROM Usuario WHERE nombre = :nom AND pass = :cont"/* , Eventos.class */);
+				query.setParameter("nom", nom);
+				query.setParameter("cont", cont);
+				List<Usuario> users = query.list();
 
-			if(users.size()==1) {
-				//session.close();
+				if(users.size()==1) {
+					//session.close();
+					//session.getTransaction().commit();
+					//session.close();
+					return true; 
+				
+				}
+				
+				
+				
 				//session.getTransaction().commit();
-				//session.close();
-				return true; 
-			
+
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
+				return false;
 			}
 			
-			
-			
-			//session.getTransaction().commit();
-
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
 			return false;
+		
 		}
 		
-		return false;
-	
-	}
-	
-	public Login crearEventoLogin(String nom, String cont, boolean login) {
-		
-		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
+		public Login crearEventoLogin(String nom, String cont, boolean login) {
+			
+			try {
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
 
-			Login l = new Login();
-			
-			Query query = session.createQuery("FROM Usuario WHERE nombre = :nom AND pass = :cont"/* , Eventos.class */);
-			query.setParameter("nom", nom);
-			query.setParameter("cont", cont);
-			List<Usuario> users = query.list();
-			
-			if(users.size()==1) {
-				//session.close();
-				//session.getTransaction().commit();
-				//session.close();
-				l.setUsuario(users.get(0));
-				l.setFecha(new Date());
-				l.setLogin(login);
+				Login l = new Login();
 				
-				session.persist(l);
+				Query query = session.createQuery("FROM Usuario WHERE nombre = :nom AND pass = :cont"/* , Eventos.class */);
+				query.setParameter("nom", nom);
+				query.setParameter("cont", cont);
+				List<Usuario> users = query.list();
+				
+				if(users.size()==1) {
+					//session.close();
+					//session.getTransaction().commit();
+					//session.close();
+					l.setUsuario(users.get(0));
+					l.setFecha(new Date());
+					l.setLogin(login);
+					
+					session.persist(l);
 
-				session.getTransaction().commit();
-				//session.close();
+					session.getTransaction().commit();
+					//session.close();
+					
+					return l; 
 				
-				return l; 
-			
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
+				return null;
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
 			return null;
+			
 		}
-		
-		return null;
-		
-	}
 
-	public List<Evento> getEvents(Date date) {
+		public List<Evento> getEvents(Date date) {
 
-		List<Evento> res = new ArrayList<Evento>();
+			List<Evento> res = new ArrayList<Evento>();
 
-		try {
+			try {
 
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			Query query = session.createQuery("FROM Evento WHERE eventDate = :date"/* , Eventos.class */);
-			query.setParameter("date", date);
-			List<Evento> events = query.list();
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Query query = session.createQuery("FROM Evento WHERE eventDate = :date"/* , Eventos.class */);
+				query.setParameter("date", date);
+				List<Evento> events = query.list();
 
-			for (Evento ev : events) {
-				System.out.println(ev.toString());
-				res.add(ev);
+				for (Evento ev : events) {
+					System.out.println(ev.toString());
+					res.add(ev);
+				}
+
+				session.close();
 			}
 
-			session.close();
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
-		}
-
-		return res;
-	}
-
-	/**
-	 * This method retrieves from the database the dates a month for which there are
-	 * events
-	 * 
-	 * @param date of the month for which days with events want to be retrieved
-	 * @return collection of dates
-	 */
-
-	public List<Date> getEventsMonth(Date date) {
-		List<Date> res = new ArrayList<Date>();
-
-		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-
-			Date firstDayMonthDate = UtilDate.firstDayMonth(date);
-			Date lastDayMonthDate = UtilDate.lastDayMonth(date);
-
-			Query query = session.createQuery(
-					"SELECT DISTINCT ev.eventDate FROM Evento ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*
-																													 * ,Date
-																													 * .
-																													 * class
-																													 */);
-			query.setParameter("firstDay", firstDayMonthDate);
-			query.setParameter("lastDay", lastDayMonthDate);
-			List<Date> dates = query.list();
-
-			for (Date d : dates) {
-				System.out.println(d.toString());
-				res.add(d);
+			catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
 			}
 
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
+			return res;
 		}
 
-		return res;
-	}
+		/**
+		 * This method retrieves from the database the dates a month for which there are
+		 * events
+		 * 
+		 * @param date of the month for which days with events want to be retrieved
+		 * @return collection of dates
+		 */
 
-	public List<Pregunta> getPreguntasEvento(Evento ev) {
+		public List<Date> getEventsMonth(Date date) {
+			List<Date> res = new ArrayList<Date>();
 
-		List<Pregunta> res = new ArrayList<Pregunta>();
+			try {
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
 
-		try {
+				Date firstDayMonthDate = UtilDate.firstDayMonth(date);
+				Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			Query query = session.createQuery("FROM Pregunta WHERE event = :ev"/* , Eventos.class */);
-			query.setParameter("ev", ev);
-			List<Pregunta> preg = query.list();
+				Query query = session.createQuery(
+						"SELECT DISTINCT ev.eventDate FROM Evento ev WHERE ev.eventDate BETWEEN :firstDay AND :lastDay"/*
+																														 * ,Date
+																														 * .
+																														 * class
+																														 */);
+				query.setParameter("firstDay", firstDayMonthDate);
+				query.setParameter("lastDay", lastDayMonthDate);
+				List<Date> dates = query.list();
 
-			for (Pregunta p : preg) {
-				System.out.println(p.toString());
-				res.add(p);
+				for (Date d : dates) {
+					System.out.println(d.toString());
+					res.add(d);
+				}
+
+				session.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
 			}
 
-			session.close();
+			return res;
 		}
 
-		catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
+		public List<Pregunta> getPreguntasEvento(Evento ev) {
+
+			List<Pregunta> res = new ArrayList<Pregunta>();
+
+			try {
+
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Query query = session.createQuery("FROM Pregunta WHERE event = :ev"/* , Eventos.class */);
+				query.setParameter("ev", ev);
+				List<Pregunta> preg = query.list();
+
+				for (Pregunta p : preg) {
+					System.out.println(p.toString());
+					res.add(p);
+				}
+
+				session.close();
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
+			}
+
+			return res;
 		}
 
-		return res;
+		public boolean existQuestion(Evento event, String question) {
+
+			try {
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Evento ev = (Evento) session.get(Evento.class, event.getEventDate());
+				session.close(); // Cerrar la sesión después de obtener el objeto Event
+
+				return ev != null && ev.DoesQuestionExists(question);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// Manejar la excepción según tus necesidades
+				return false;
+			}
+		}
+
 	}
-
-	public boolean existQuestion(Evento event, String question) {
-
-		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			Evento ev = (Evento) session.get(Evento.class, event.getEventDate());
-			session.close(); // Cerrar la sesión después de obtener el objeto Event
-
-			return ev != null && ev.DoesQuestionExists(question);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Manejar la excepción según tus necesidades
-			return false;
-		}
-	}
-
-}

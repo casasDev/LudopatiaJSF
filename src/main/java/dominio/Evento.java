@@ -110,8 +110,6 @@ public class Evento {
 		//if (preguntas.compareTo(question)) return true;
 		
 	}
-		
-
 	
 	@Override
 	public int hashCode() {

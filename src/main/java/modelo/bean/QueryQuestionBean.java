@@ -99,7 +99,6 @@ public class QueryQuestionBean {
 		eventoSel = event;
 		//System.out.println(eventoSel.getQuestions());
 		//System.out.println(eventoSel);
-		//System.out.println("AAAAAAAAAAAAAAAAAHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhhhaahsjhsajkbsdjhvd");
 		preguntas = bl.getPreguntasEvento(eventoSel);
 		
 		if (preguntas.isEmpty()) {
@@ -135,7 +134,5 @@ public class QueryQuestionBean {
 	 * 
 	 * }
 	 */
-
-
 
 //}
