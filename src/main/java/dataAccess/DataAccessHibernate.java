@@ -179,7 +179,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			session.persist(ev);
 
 			session.getTransaction().commit();
-			session.close();
+			//session.close();
 
 			return q;
 		} catch (Exception e) {
@@ -202,7 +202,7 @@ public class DataAccessHibernate implements DataAccessHibernateImplementation {
 			session.persist(u);
 
 			session.getTransaction().commit();
-			session.close();
+			//session.close();
 
 			return u;
 		} catch (Exception e) {
