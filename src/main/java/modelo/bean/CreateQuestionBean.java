@@ -1,24 +1,17 @@
 package modelo.bean;
 
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat; 
 import dominio.Evento;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.model.SelectItem;
-
-import org.apache.commons.collections.set.SynchronizedSortedSet;
 import org.primefaces.event.SelectEvent;
-import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 
 @ManagedBean
