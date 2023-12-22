@@ -88,5 +88,9 @@ public class CreateQuestionBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Por alguna razón que desconozco este evento lo detecta como null. Prueba con otro evento"));
 		}
 	}
+	public String irMenu() {
+        //return "QueryQuestions.xhtml?faces-redirect=true";
+		return "irMenu";
+    }
 	
 }

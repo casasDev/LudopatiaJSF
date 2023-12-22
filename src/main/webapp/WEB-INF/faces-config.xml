@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://Java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-    version="2.0">
-    
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://Java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
 	<managed-bean>
 		<managed-bean-name>query</managed-bean-name>
 		<managed-bean-class>modelo.bean.QueryQuestionBean</managed-bean-class>
@@ -29,29 +28,49 @@
 			<to-view-id>/Menu.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<managed-bean>
 		<managed-bean-name>menu</managed-bean-name>
 		<managed-bean-class>modelo.bean.MenuBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
+
+	<navigation-rule>
+		<display-name>Menu.xhtml</display-name>
+		<from-view-id>/Menu.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>irQueryQuestion</from-outcome>
+			<to-view-id>/QueryQuestions.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>irCreateQuestion</from-outcome>
+			<to-view-id>/CreateQuestion.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<navigation-rule>
-    <display-name>Menu.xhtml</display-name>
-    <from-view-id>/Menu.xhtml</from-view-id>
+		<display-name>CreateQuestion.xhtml</display-name>
+		<from-view-id>/CreateQuestion.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>irMenu</from-outcome>
+			<to-view-id>/Menu.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+    <from-view-id>/QueryQuestion.xhtml</from-view-id>
     <navigation-case>
-        <from-outcome>irQueryQuestion</from-outcome>
-        <to-view-id>/QueryQuestions.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-        <from-outcome>irCreateQuestion</from-outcome>
-        <to-view-id>/CreateQuestion.xhtml</to-view-id>
+        <from-outcome>irMenu</from-outcome>
+        <to-view-id>/Menu.xhtml</to-view-id>
     </navigation-case>
 </navigation-rule>
-	<converter>
-    <converter-id>omnifaces.SelectItemsConverter</converter-id>
-    <converter-class>org.omnifaces.converter.SelectItemsConverter</converter-class>
-</converter>
+
 	
+	<converter>
+		<converter-id>omnifaces.SelectItemsConverter</converter-id>
+		<converter-class>org.omnifaces.converter.SelectItemsConverter</converter-class>
+	</converter>
+
 
 </faces-config>

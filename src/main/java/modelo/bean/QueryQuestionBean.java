@@ -105,6 +105,12 @@ public class QueryQuestionBean {
 		
 	}
 	
+	public String irMenu() {
+        //return "QueryQuestions.xhtml?faces-redirect=true";
+		//return "irMenu";
+		return "/Menu.xhtml?faces-redirect=true";
+    }
+	
 	
 	
 	}

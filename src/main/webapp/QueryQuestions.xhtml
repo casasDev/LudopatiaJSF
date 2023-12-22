@@ -57,6 +57,9 @@
 			<tr>
 				<td><h:messages style="color:blue" /></td>
 			</tr>
+			<h:commandButton value="Go back" action="#query.irMenu">
+			<f:ajax execute="@this" render="@form"/>
+			</h:commandButton>
 			<h:messages id="mensajes" style="color:blue" />
 		</h:form>
 	</h:body>

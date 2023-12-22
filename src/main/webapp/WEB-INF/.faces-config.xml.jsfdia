@@ -20,7 +20,21 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#CreateQuestion.xhtml"
-  PATH="/CreateQuestion.xhtml" SHAPE="464,161,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/CreateQuestion.xhtml" SHAPE="464,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#CreateQuestion.xhtml:0" NAME="item"
+   PATH="/CreateQuestion.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="irMenu::#Menu.xhtml" NAME="output"
+    PATH="/Menu.xhtml" TARGET="rules:#Menu.xhtml" TITLE="irMenu" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#QueryQuestions.xhtml"
   PATH="/QueryQuestions.xhtml" SHAPE="464,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#QueryQuestion.xhtml"
+  PATH="/QueryQuestion.xhtml" SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#QueryQuestion.xhtml:0" NAME="item"
+   PATH="/QueryQuestion.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="irMenu::#Menu.xhtml" NAME="output"
+    PATH="/Menu.xhtml" TARGET="rules:#Menu.xhtml" TITLE="irMenu" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
