@@ -57,7 +57,8 @@ public class LoginApuestasBean {
             
             u.crearEventoLogin(nombre,password,true);
             
-			return "ok";
+			//return "ok";
+			return "/Menu.xhtml?faces-redirect=true";
 			
 		}
 	

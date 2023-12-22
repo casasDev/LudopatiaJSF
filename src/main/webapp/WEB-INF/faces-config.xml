@@ -47,26 +47,36 @@
 			<to-view-id>/CreateQuestion.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<display-name>CreateQuestion.xhtml</display-name>
 		<from-view-id>/CreateQuestion.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>irMenu</from-outcome>
 			<to-view-id>/Menu.xhtml</to-view-id>
-			<redirect/>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
-	<navigation-rule>
-    <from-view-id>/QueryQuestion.xhtml</from-view-id>
-    <navigation-case>
-        <from-outcome>irMenu</from-outcome>
-        <to-view-id>/Menu.xhtml</to-view-id>
-    </navigation-case>
-</navigation-rule>
 
-	
+	<navigation-rule>
+		<display-name>QueryQuestion.xhtml</display-name>
+		<from-view-id>/QueryQuestion.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>irMenu</from-outcome>
+			<to-view-id>/Menu.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>CreateQuestion.xhtml</display-name>
+		<from-view-id>/CreateQuestion.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>irMenu</from-outcome>
+			<to-view-id>/Menu.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
 	<converter>
 		<converter-id>omnifaces.SelectItemsConverter</converter-id>
 		<converter-class>org.omnifaces.converter.SelectItemsConverter</converter-class>

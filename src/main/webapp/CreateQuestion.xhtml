@@ -49,7 +49,9 @@
 			</table>
 			<p>
 				<h:commandButton value="Create question" action="#{createQuestion.anadirPreguntaAEvento}"></h:commandButton>
-				<h:commandButton value="Go back" action="#createQuestion.irMenu"><f:ajax execute="@this" render="@form"/></h:commandButton>
+				<h:commandButton value="Go back" action="#createQuestion.irMenu">
+				<f:ajax execute="@this" render="@form"/>
+				</h:commandButton>
 			</p>
 		</h:form>
 	</h:body>

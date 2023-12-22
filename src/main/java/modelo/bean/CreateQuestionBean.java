@@ -90,7 +90,8 @@ public class CreateQuestionBean {
 	}
 	public String irMenu() {
         //return "QueryQuestions.xhtml?faces-redirect=true";
-		return "irMenu";
+		//return "irMenu";
+		return "/Menu.xhtml?faces-redirect=true";
     }
 	
 }

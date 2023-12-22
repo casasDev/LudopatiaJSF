@@ -26,6 +26,11 @@
    <PROCESS-ITEM-OUTPUT ID="irMenu::#Menu.xhtml" NAME="output"
     PATH="/Menu.xhtml" TARGET="rules:#Menu.xhtml" TITLE="irMenu" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#CreateQuestion.xhtml:1" NAME="item1"
+   PATH="/CreateQuestion.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="irMenu::#Menu.xhtml" NAME="output"
+    PATH="/Menu.xhtml" TARGET="rules:#Menu.xhtml" TITLE="irMenu" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#QueryQuestions.xhtml"
   PATH="/QueryQuestions.xhtml" SHAPE="464,17,0,0" model-entity="JSFProcessGroup"/>
